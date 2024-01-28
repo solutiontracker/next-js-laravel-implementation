@@ -1,0 +1,7 @@
+INSERT INTO `plans` (`id`, `name`, `stripe_subscription_id`, `stripe_price_id`, `alias`, `months`, `price`, `saving`, `is_active`, `is_upgrade`, `is_downgrade`, `is_renewal`, `description`, `websites`, `cdn_volume_bandwidth`, `cdn_premium_bandwidth`, `is_free`, `updated_at`, `created_at`, `deleted_at`) VALUES
+(1, 'Pro', 'prod_MSmLvF5Ee6VDzQ', 'price_1LjqmxKLeNezTDpiXUgffvag', 'pro', 1, '7.50', '15.00', 1, 1, 1, 1, 'Perfect For Bloggers, Individuals & Solopreneurs', 1, 80, 20, 0, NULL, NULL, NULL),
+(2, 'Pro', 'prod_MSmOvLjwtilbpK', 'price_1LjqpfKLeNezTDpi3cFcVsIK', 'pro', 12, '75.00', '15.00', 1, 1, 1, 1, 'Perfect For Bloggers, Individuals & Solopreneurs', 1, 80, 20, 0, NULL, NULL, NULL),
+(3, 'Business', 'prod_MSmPbHLxCTEnKW', 'price_1Ljqr0KLeNezTDpiejdiyHcj', 'business', 1, '15.00', '30.00', 1, 1, 1, 1, 'Perfect For Freelancers, Business, & Agency Owners', 10, 160, 40, 0, NULL, NULL, NULL),
+(4, 'Business', 'prod_MSmQDqd1U3w06Y', 'price_1LjqryKLeNezTDpiw1KUkQJt', 'business', 12, '150.00', '30.00', 1, 1, 1, 1, 'Perfect For Freelancers, Business, & Agency Owners', 10, 160, 40, 0, NULL, NULL, NULL),
+(5, 'Agency', 'prod_MSmSWN7YA1AasB', 'price_1LjqtBKLeNezTDpiQKXc7g6P', 'agency', 1, '32.50', '65.00', 1, 1, 1, 1, 'Perfect For Agency Owners with high volume', 0, 240, 60, 0, NULL, NULL, NULL),
+(6, 'Agency', 'prod_MSmTw11eqNuiLH', 'price_1LjquCKLeNezTDpi43a2VjYY', 'agency', 12, '325.00', '65.00', 1, 1, 1, 1, 'Perfect For Agency Owners with high volume', 0, 240, 60, 0, NULL, NULL, NULL);

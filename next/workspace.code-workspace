@@ -1,0 +1,31 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../SystemLimited-react"
+    },
+    {
+      "path": "../../../Dev Enviroment/wordpress/wp-content/plugins/SystemLimited-pro"
+    },
+    {
+      "path": "../../../Dev Enviroment/SystemLimited-api/SystemLimited-web-app"
+    },
+    {
+      "path": "../../Store/SystemLimited NextJS"
+    },
+    {
+      "path": "../../../Dev Enviroment/wordpress/wp-content/plugins/easy-folders-pro"
+    },
+    {
+      "path": "../../Store/SystemLimited-API"
+    },
+    {
+      "path": "../../../Dev Enviroment/wordpress/wp-content/plugins/wp-watermark"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "SystemLimited-API"
+  }
+}

@@ -1,0 +1,4267 @@
+@import 'includes/variables';
+@import 'includes/mixins';
+
+//NEW
+.wf-switch {
+  input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 24px;
+    background: $SurfaceOnDepressed;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+  }
+  
+  label:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+  
+  input:checked + label {
+    background: $ActionPrimaryDefault;
+  }
+  
+  input:checked + label:after {
+    left: calc(100% - 4px)  !important;
+    transform: translateX(-100%) !important;
+  }
+
+  &.disabled {
+    position: relative;
+    cursor: not-allowed;
+    overflow: hidden;
+    border-radius: 100px;
+    
+    &::after {
+      @include pseudo();
+      top: -6px;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: calc(100% + 10px);
+      background-color: $SurfaceDisabled;
+      opacity: 0.8;
+    }
+  }
+
+  &.wf-switch--slim {
+    label {
+      width: 44px;
+      height: 20px;
+
+      &::after {
+        width: 12px;
+        height: 12px;
+      }
+    }
+    &.disabled {
+      &::after {
+        top: -4px;
+        left: -4px;
+        width: calc(100% + 8px);
+        height: calc(100% + 8px);
+      }
+    }
+  }
+}
+
+.wf-progress-bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: $BorderSubdued;
+  border-radius: 30px;
+
+  &__progress-indicator {
+    position: absolute;
+    margin-left: -18px;
+
+    &::before {
+      bottom: 100%;
+      margin-bottom: 14px;
+      width: 38px;
+      position: absolute;
+      content: attr(progress-done) "%";
+      background: $SurfaceDefault;
+      font-size: 12px;
+      text-transform: initial;
+      text-align: center;
+      color: $TextSubdued;
+      padding: 4px;
+      border-radius: 4px;
+      opacity: 1;
+      visibility: visible;
+      display: block;
+      text-align: center;
+      @extend .ShadowDepth03;
+
+      @include transition(opacity, 0.1s);
+    }
+    &::after {
+      @include css-triangle($SurfaceDefault, down);
+      bottom: 100%;
+      left: 12px;
+      margin-bottom: 8px;
+      opacity: 1;
+      visibility: visible;
+      display: block;
+      @include transition(opacity, 0.1s);
+    }
+  }
+
+  &__bar-inner-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+
+    .wf-progress-bar__completed {
+      background-color: $ActionPrimaryDefault;
+      height: 100%;
+      width: 0%;
+    }
+  }
+}
+
+[wf-tooltip] {
+  &::before {
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-bottom: 8px;
+    max-width: 250px;
+    width: max-content;
+    position: absolute;
+    content: attr(wf-tooltip) " ";
+    background: rgba($SurfaceOnDefault, 0.85);
+    font-size: 12px;
+    text-transform: initial;
+    color: $TextOnInteractive;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    text-align: center;
+    z-index: z("wf-tooltip");
+
+    @include transition(opacity, 0.1s);
+  }
+  &::after {
+    @include css-triangle(rgb($SurfaceOnDefault, 0.85), down);
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-bottom: 2px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    z-index: z("wf-tooltip");
+    @include transition(opacity, 0.1s);
+  }
+
+  &:hover {
+    position: relative;
+  
+    &::before,
+    &::after {
+      opacity: 1;
+      visibility: visible;
+      display: block;
+    }
+  }
+}
+[wf-tooltip-bottom] {
+  &::before {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 8px;
+    max-width: 250px;
+    width: max-content;
+    position: absolute;
+    content: attr(wf-tooltip-bottom) " ";
+    background: rgb($SurfaceOnDefault, 0.85);
+    text-transform: initial;
+    font-size: 12px;
+    color: $TextOnInteractive;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    text-align: center;
+    z-index: z("wf-tooltip");
+
+    @include transition(opacity, 0.1s);
+  }
+  &::after {
+    @include css-triangle(rgb($SurfaceOnDefault, 0.85), up);
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 2px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    z-index: z("wf-tooltip");
+    @include transition(opacity, 0.1s);
+  }
+
+  &:hover {
+    position: relative;
+  
+    &::before,
+    &::after {
+      opacity: 1;
+      visibility: visible;
+      display: block;
+    }
+  }
+}
+[wf-tooltip-left] {
+  &::before {
+    top: 0;
+    right: calc(100% + 6px);
+    transform: translate(0, 0);
+    margin-top: 0;
+    max-width: 250px;
+    width: max-content;
+    position: absolute;
+    content: attr(wf-tooltip-left) " ";
+    background: rgb($SurfaceOnDefault, 0.85);
+    text-transform: initial;
+    font-size: 12px;
+    color: $TextOnInteractive;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    text-align: left;
+    z-index: z("wf-tooltip");
+
+    @include transition(opacity, 0.1s);
+  }
+  &::after {
+    @include css-triangle(rgb($SurfaceOnDefault, 0.85), right);
+    top: 0;
+    right: 100%;
+    transform: translate(0, 0);
+    margin-top: 8px;
+    margin-right: 0px;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    z-index: z("wf-tooltip");
+    @include transition(opacity, 0.1s);
+  }
+
+  &:hover {
+    position: relative;
+  
+    &::before,
+    &::after {
+      opacity: 1;
+      visibility: visible;
+      display: block;
+    }
+  }
+}
+
+.wf-button {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  --wf-button-drop-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08);
+  --wf-button-inner-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.2);
+  --wf-button-pressed-inner-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.05);
+
+  background-color: $ActionSecondaryDefault;
+  border-radius: 4px;
+  border: solid 1px $ButtonBorder;
+  border-bottom-color: $ButtonBorderBottom;
+
+  cursor: pointer;
+  @include transition(background-color, 0.2s);
+  box-shadow: var(--wf-button-inner-shadow, --wf-button-drop-shadow);
+
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    display: block;
+    pointer-events: none;
+    box-shadow: 0 0 0 -1px $FocusedDefault;
+    @include transition(box-shadow, 0.1s);
+    border-radius: 5px;
+  }
+  &:hover {
+    background-color: $ActionSecondaryHovered;
+  }
+  &:focus {
+    background-color: $ActionSecondaryDefault;
+  }
+  &:focus:after {
+    box-shadow: 0 0 0 2px $FocusedDefault;
+    outline: 1px solid transparent;
+  }
+  &:active {
+    box-shadow: var(--wf-button-pressed-inner-shadow);
+    background-color: $ActionSecondaryPressed;
+  }
+
+  &--slim {
+    padding: 3px 11px;
+
+    .wf-button__text {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+  &--medium {
+    padding: 7px 15px;
+  }
+  &--large {
+    padding: 11px 21px;
+  }
+  &--x-large {
+    padding: 15px 27px;
+
+    .wf-button__text {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+  }
+  &--fluid {
+    width: 100%;
+  }
+  &--fluid.wf-button--content-left{
+    .wf-button__content {
+      justify-content: flex-start;
+    }
+  }
+
+  .SystemLimited-icon {
+    color: $IconDefault;
+    font-size: 16px;
+  }
+  &__content {
+    @include flex(row, center, center);
+  }
+  &__text {
+    @extend .Button;
+    color: $TextDefault;
+  }
+  &__disclosure {
+    margin-left: 4px;
+  }
+  &__loading {
+    @include flex(row, center, center);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s linear 0.3s, top 0.4s cubic-bezier(0.22, 0, 0.41, -0.57);
+
+    svg {
+      margin: 0;
+      width: 22px;
+      fill: $IconDefault;
+    }
+
+    .loading__circle {
+      &:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+    }
+    @keyframes loading__circle {
+      0% { cy: 10; } 
+      25% { cy: 3; } 
+      50% { cy: 10; }
+    }
+  }
+  &.wf-button--loading {
+      & > * {
+        opacity: 0;
+        visibility: hidden;
+      }
+      
+      &::before {
+        transition: width .3s ease;
+        width: 80%;
+      }
+      .wf-button__loading {
+        opacity: 1;
+        visibility: visible;
+      }
+      .loading__circle {
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-name: loading__circle;
+        cy: 10;
+      }
+  }
+  
+  &--active {
+    border-color: $BorderDepressed;
+    background-color: $ActionSecondaryDepressed;
+    box-shadow: var(--wf-button-pressed-inner-shadow);
+
+    .SystemLimited-icon {
+      color: $IconOnPrimary;
+    }
+    .wf-button__loading svg {
+      fill: $IconOnPrimary;
+    }
+    .wf-button__text {
+      color: $TextOnDefault;
+    }
+
+    &:hover, &:focus, &:active {
+      border-color: $BorderDepressed;
+      background-color: $ActionSecondaryDepressed;
+      box-shadow: var(--wf-button-pressed-inner-shadow);
+
+      .SystemLimited-icon {
+        color: $IconOnPrimary;
+      }
+      .wf-button__loading svg {
+        fill: $IconOnPrimary;
+      }
+      .wf-button__text {
+        color: $TextOnDefault;
+      }
+    }
+  }
+
+  &--disabled {
+    background-color: $SurfaceDisabled;
+    border-color: $BorderDisabled;
+    color: $TextDisabled;
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+    box-shadow: none !important;
+
+    .SystemLimited-icon {
+      color: $IconDisabled;
+    }
+    .wf-button__loading svg {
+      fill: $IconDisabled
+    }
+    .wf-button__text {
+      color: $TextDisabled;
+    }
+
+    &:hover, &:focus, &:active {
+      background-color: $SurfaceDisabled;
+      border-color: $BorderDisabled;
+      color: $TextDisabled;
+      box-shadow: none !important;
+    }
+    &:focus:after {
+      box-shadow: none !important;
+      outline: 1px solid transparent;
+    }
+  }
+
+  &--primary {
+    background-color: $ActionPrimaryDefault;
+    border-color: $ActionPrimaryDefault;
+
+    .SystemLimited-icon {
+      color: $IconOnPrimary;
+    }
+    .wf-button__loading svg {
+      fill: $IconOnPrimary;
+    }
+    .wf-button__text {
+      color: $TextOnPrimary;
+    }
+    &:hover {
+      background-color: $ActionPrimaryHovered;
+      border-color: $ActionPrimaryHovered;
+    }
+    &:focus {
+      background-color: $ActionPrimaryDefault;
+      border-color: $ActionPrimaryDefault;
+    }
+    &:active {
+      background-color: $ActionPrimaryPressed;
+      border-color: $ActionPrimaryPressed;
+    }
+    &.wf-button--active {
+      background-color: $ActionPrimaryDepressed;
+      border-color: $ActionPrimaryDepressed;
+      box-shadow: var(--wf-button-pressed-inner-shadow);
+
+      .SystemLimited-icon {
+        color: $IconOnPrimary;
+      }
+      .wf-button__loading svg {
+        fill: $IconOnPrimary;
+      }
+      .wf-button__text {
+        color: $TextOnPrimary;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: $ActionPrimaryDepressed;
+        border-color: $ActionPrimaryDepressed;
+        box-shadow: var(--wf-button-pressed-inner-shadow);
+
+        .SystemLimited-icon {
+          color: $IconOnPrimary;
+        }
+        .wf-button__loading svg {
+          fill: $IconOnPrimary;
+        }
+        .wf-button__text {
+          color: $TextOnPrimary;
+        }
+      }
+    }
+    &.wf-button--disabled {
+      background-color: $ActionPrimaryDisabled;
+      border-color: $ActionPrimaryDisabled;
+      color: $TextDisabled;
+      box-shadow: none;
+
+      .SystemLimited-icon {
+        color: $IconDisabled;
+      }
+      .wf-button__loading svg {
+        fill: $IconDisabled
+      }
+      .wf-button__text {
+        color: $TextDisabled;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: $ActionPrimaryDisabled;
+        border-color: $ActionPrimaryDisabled;
+        color: $TextDisabled;
+        box-shadow: none;
+      }
+    }
+
+    &.wf-button--on-background {
+      background-color: $ActionPrimaryOnDefault;
+      border-color: $ActionPrimaryOnDefault;
+      .SystemLimited-icon {
+        color: $TextOnPrimary;
+      }
+      .wf-button__loading svg {
+        fill: $TextOnPrimary;
+      }
+      .wf-button__text {
+        color: $TextOnPrimary;
+      }
+      &:hover {
+        background-color: $ActionPrimaryOnHovered;
+        border-color: $ActionPrimaryOnHovered;
+        .wf-button__text {
+          color: $TextOnPrimary;
+        }
+        .SystemLimited-icon {
+          color: $IconOnPrimary;
+        }
+        .wf-button__loading svg {
+          fill: $IconOnPrimary;
+        }
+      }
+
+      &:active {
+        background-color: $ActionPrimaryOnPressed;
+        border-color: $ActionPrimaryOnPressed;
+        .wf-button__text {
+          color: $TextOnPrimary;
+        }
+        .SystemLimited-icon {
+          color: $IconOnPrimary;
+        }
+        .wf-button__loading svg {
+          fill: $TextOnPrimary;
+        }
+      }
+
+      &.wf-button--active {
+        background-color: $ActionPrimaryOnDepressed;
+        border-color: $ActionPrimaryOnDepressed;
+
+        .wf-button__text {
+          color: $TextOnPrimary;
+        }
+        .SystemLimited-icon {
+          color: $TextOnPrimary;
+        }
+        .wf-button__loading svg {
+          fill: $TextOnPrimary;
+        }
+  
+        &:hover, &:focus, &:active {
+          background-color: $ActionPrimaryOnDepressed;
+          border-color: $ActionPrimaryOnDepressed;
+  
+          .wf-button__text {
+            color: $TextOnPrimary;
+          }
+          .SystemLimited-icon {
+            color: $TextOnPrimary;
+          }
+          .wf-button__loading svg {
+            fill: $TextOnPrimary;
+          }
+        }
+      }
+      &.wf-button--disabled {
+        background-color: $ActionPrimaryOnDisabled;
+        border-color: $ActionPrimaryOnDisabled;
+        color: $TextDisabled;
+        box-shadow: none;
+  
+        .SystemLimited-icon {
+          color: $TextDisabled;
+        }
+        .wf-button__loading svg {
+          fill: $TextDisabled;
+        }
+        .wf-button__text {
+          color: $TextDisabled;
+        }
+  
+        &:hover, &:focus, &:active {
+          background-color: $ActionPrimaryOnDisabled;
+          border-color: $ActionPrimaryOnDisabled;
+          color: $TextDisabled;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  &--destructive {
+    background-color: $ActionCriticalDefault;
+    border-color: $ActionCriticalDefault;
+
+    .SystemLimited-icon {
+      color: $IconOnCritical;
+    }
+    .wf-button__loading svg {
+      fill: $IconOnCritical;
+    }
+    .wf-button__text {
+      color: $TextOnCritical;
+    }
+    &:hover {
+      background-color: $ActionCriticalHovered;
+      border-color: $ActionCriticalHovered;
+    }
+    &:focus {
+      background-color: $ActionCriticalDefault;
+      border-color: $ActionCriticalDefault;
+    }
+    &:active {
+      background-color: $ActionCriticalPressed;
+      border-color: $ActionCriticalPressed;
+    }
+    &.wf-button--active {
+      background-color: $ActionCriticalDepressed;
+      border-color: $ActionCriticalDepressed;
+      box-shadow: var(--wf-button-pressed-inner-shadow);
+
+      .SystemLimited-icon {
+        color: $IconOnCritical;
+      }
+      .wf-button__loading svg {
+        fill: $IconOnCritical;
+      }
+      .wf-button__text {
+        color: $TextOnCritical;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: $ActionCriticalDepressed;
+        border-color: $ActionCriticalDepressed;
+        box-shadow: var(--wf-button-pressed-inner-shadow);
+
+        .SystemLimited-icon {
+          color: $IconOnCritical;
+        }
+        .wf-button__loading svg {
+          fill: $IconOnCritical;
+        }
+        .wf-button__text {
+          color: $TextOnCritical;
+        }
+      }
+    }
+  }
+  &--destructive-outline {
+    background-color: transparent;
+    border-color: $InteractiveCritical;
+
+    --wf-button-drop-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08);
+    --wf-button-inner-shadow: inset 0px -1px 0px rgb(255 153 153 / 20%);
+
+    box-shadow: var(--wf-button-inner-shadow, --wf-button-drop-shadow);
+
+    .SystemLimited-icon {
+      color: $IconCritical;
+    }
+    .wf-button__loading svg {
+      fill: $IconCritical;
+    }
+    .wf-button__text {
+      color: $TextCritical;
+    }
+    &:hover {
+      background-color: $SurfaceCriticalSubduedHovered;
+      border-color: $InteractiveCritical;
+    }
+    &:focus {
+      background-color: transparent;
+      border-color: $InteractiveCritical;
+    }
+    &:active {
+      background-color: $SurfaceCriticalSubduedHovered;
+      border-color: $InteractiveCritical;
+    }
+    &.wf-button--active {
+      background-color: $SurfaceCriticalDefault;
+      border-color: $InteractiveCritical;
+      box-shadow: var(--wf-button-pressed-inner-shadow);
+
+      .SystemLimited-icon {
+        color: $IconOnCritical;
+      }
+      .wf-button__loading svg {
+        fill: $IconOnCritical;
+      }
+      .wf-button__text {
+        color: $TextOnCritical;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: $SurfaceCriticalDefault;
+        border-color: $InteractiveCritical;
+        box-shadow: var(--wf-button-pressed-inner-shadow);
+
+        .SystemLimited-icon {
+          color: $IconOnCritical;
+        }
+        .wf-button__loading svg {
+          fill: $IconOnCritical;
+        }
+        .wf-button__text {
+          color: $TextOnCritical;
+        }
+      }
+    }
+    &.wf-button--disabled {
+      background-color: transparent;
+      border-color: $BorderDisabled;
+      color: $TextDisabled;
+      box-shadow: none;
+
+      .SystemLimited-icon {
+        color: $IconDisabled;
+      }
+      .wf-button__loading svg {
+        fill: $IconDisabled;
+      }
+      .wf-button__text {
+        color: $TextDisabled;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: transparent;
+        border-color: $BorderDisabled;
+        color: $TextDisabled;
+        box-shadow: none;
+      }
+    }
+  }
+  &--outline {
+    background-color: transparent;
+    border-color: $BorderDefault;
+
+    .SystemLimited-icon {
+      color: $IconDefault;
+    }
+    .wf-button__loading svg {
+      fill: $IconDefault;
+    }
+    .wf-button__text {
+      color: $TextDefault;
+    }
+    &:hover {
+      background-color: $ActionSecondaryHovered;
+      border-color: $BorderDefault;
+    }
+    &:focus {
+      background-color: transparent;
+      border-color: $BorderDefault;
+    }
+    &:active {
+      background-color: $ActionSecondaryPressed;
+      border-color: $BorderDefault;
+    }
+    &.wf-button--active {
+      background-color: $ActionPrimaryDepressed;
+      border-color: $ActionPrimaryDepressed;
+      box-shadow: var(--wf-button-pressed-inner-shadow);
+
+      .SystemLimited-icon {
+        color: $IconOnPrimary;
+      }
+      .wf-button__loading svg {
+        fill: $IconOnPrimary;
+      }
+      .wf-button__text {
+        color: $TextOnDefault;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: $ActionSecondaryDepressed;
+        border-color: $BorderDepressed;
+        box-shadow: var(--wf-button-pressed-inner-shadow);
+
+        .SystemLimited-icon {
+          color: $IconOnPrimary;
+        }
+        .wf-button__loading svg {
+          fill: $IconOnPrimary;
+        }
+        .wf-button__text {
+          color: $TextOnDefault;
+        }
+      }
+    }
+    &.wf-button--disabled {
+      background-color: transparent;
+      border-color: $BorderDisabled;
+      color: $TextDisabled;
+      box-shadow: none;
+
+      .SystemLimited-icon {
+        color: $IconDisabled;
+      }
+      .wf-button__loading svg {
+        fill: $IconDisabled;
+      }
+      .wf-button__text {
+        color: $TextDisabled;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: transparent;
+        border-color: $BorderDisabled;
+        color: $TextDisabled;
+        box-shadow: none;
+      }
+    }
+    &.wf-button--on-background {
+      .SystemLimited-icon {
+        color: $TextOnDefault;
+      }
+      .wf-button__loading svg {
+        fill: $TextOnDefault;
+      }
+      .wf-button__text {
+        color: $TextOnDefault;
+      }
+      &:hover {
+        background-color: $ActionSecondaryOnHovered;
+        .wf-button__text {
+          color: $TextOnDefault;
+        }
+        .SystemLimited-icon {
+          color: $TextOnDefault;
+        }
+        .wf-button__loading svg {
+          fill: $TextOnDefault;
+        }
+      }
+
+      &:active {
+        background-color: $ActionSecondaryOnPressed;
+        .wf-button__text {
+          color: $TextOnDefault;
+        }
+        .SystemLimited-icon {
+          color: $TextOnDefault;
+        }
+        .wf-button__loading svg {
+          fill: $TextOnDefault;
+        }
+      }
+
+      &.wf-button--active {
+        background-color: $ActionSecondaryOnDepressed;
+
+        .wf-button__text {
+          color: $TextOnDefault;
+        }
+        .SystemLimited-icon {
+          color: $TextOnDefault;
+        }
+        .wf-button__loading svg {
+          fill: $TextOnDefault;
+        }
+  
+        &:hover, &:focus, &:active {
+          background-color: $ActionSecondaryOnDepressed;
+  
+          .wf-button__text {
+            color: $TextOnDefault;
+          }
+          .SystemLimited-icon {
+            color: $TextOnDefault;
+          }
+          .wf-button__loading svg {
+            fill: $TextOnDefault;
+          }
+        }
+      }
+      &.wf-button--disabled {
+        background-color: $ActionSecondaryOnDisabled;
+        border-color: $BorderDisabled;
+        color: $TextDisabled;
+        box-shadow: none;
+  
+        .SystemLimited-icon {
+          color: $TextDisabled;
+        }
+        .wf-button__loading svg {
+          fill: $TextDisabled;
+        }
+        .wf-button__text {
+          color: $TextDisabled;
+        }
+  
+        &:hover, &:focus, &:active {
+          background-color: $ActionSecondaryOnDisabled;
+          border-color: $BorderDisabled;
+          color: $TextDisabled;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  &--upgrade {
+    background-color: #FEC01F;
+    border-color: darken(#FEC01F, 50%);
+
+    .wf-button__text {
+      color: #785700;
+    }
+    .SystemLimited-icon {
+      color: #785700;
+    }
+
+    &:hover, &:focus, &:active {
+      background-color: darken(#FEC01F, 10%);
+      border-color: darken(#FEC01F, 50%);
+
+      .wf-button__text {
+        color: #785700;
+      }
+      .SystemLimited-icon {
+        color: #785700;
+      }
+    }
+  }
+}
+
+.wf-button-group {
+  @include flex(row, flex-start, center);
+  gap: 8px;
+  flex-wrap: wrap;
+
+  &--packed {
+    @include flex(row, flex-start, center);
+    gap: 0px;
+
+    & > * {
+      border-radius: 0px;
+    }
+
+    & > *:first-child {
+      -webkit-border-top-left-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius-topleft: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      margin-left: 0px;
+    }
+    & > *:last-child {
+      -webkit-border-top-right-radius: 4px;
+      -webkit-border-bottom-right-radius: 4px;
+      -moz-border-radius-topright: 4px;
+      -moz-border-radius-bottomright: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+  }
+  &--space-between {
+    width: 100%;
+    @include flex(row, space-between, center);
+  }
+  &--fluid {
+    width: 100%;
+  }
+  &--align-center {
+    @include flex(row, center, center);
+  }
+  &--no-shrink {
+    flex-shrink: 0;
+  }
+}
+.wf-accordion {
+  @include flex(column, center, center);
+  gap: 20px;
+  margin-top: 20px;
+
+  &__block {
+    width: 100%;
+    max-width: 700px;
+    padding: 16px 16px 0px 16px;
+    border-radius: 8px;
+    @extend .ShadowDepth01;
+    border: solid 1px #dfdfe6;
+    @include transition(all, 0.1s);
+
+    .wf-accordion__header-section {
+      @include flex(row, space-between, center);
+      cursor: pointer;
+
+      .wf-accordion__title {
+        text-align: left;
+        @extend .Heading;
+        @include transition();
+
+      }
+      .wf-accordion__collapsible-icon {
+        font-size: 20px;
+        color: $IconDefault;
+
+        .SystemLimited-icon {
+          display: inline-block;
+          @include transition(all, 0.2s);
+        }
+      }
+    }
+
+    &:hover {
+      .wf-accordion__header-section {
+        .wf-accordion__title {
+          color: $ActionPrimaryDefault;
+        }
+      }
+    }
+
+    .wf-accordion__body-section {
+      overflow: hidden;
+      padding: 8px 0;
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      @include transition(all, 0.3s);
+
+      .wf-accordion__content {
+        color: $TextSubdued;
+        text-align: left;
+
+        ul {
+          list-style: disc;
+          margin-left: 20px;
+          margin-top: 12px;
+          li {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+
+    &:first-child {
+      margin-top: 0px;
+    }
+
+    &.wf-accordion__block--active {
+      .wf-accordion__header-section {
+        .wf-accordion__title {
+          color: $ActionPrimaryDefault;
+        }
+        .wf-accordion__collapsible-icon {
+          .SystemLimited-icon {
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      .wf-accordion__body-section {
+        max-height: 1000px;
+        opacity: 1;
+        visibility: visible;
+        transition: max-height 1s ease-in-out;
+      }
+    }
+  }
+
+  &.wf-accordion--plans {
+    .wf-accordion__block {
+      background: $BackgroundDefault;
+      margin-top: 12px; 
+      padding: 12px;
+      cursor: pointer;   
+    
+      .wf-accordion__header-section {
+        .wf-accordion__title {
+          font-size: 14px;
+          font-weight: 500;
+        }
+        .wf-accordion__collapsible-icon {
+          .SystemLimited-icon {
+            color: $IconSubdued;
+          }
+        }
+      }
+      .wf-accordion__content {
+        font-size: 14px;
+      }
+    
+      &:first-child {
+        margin-top: 0px;
+      }
+
+      &:hover {
+        background: $BackgroundHovered;
+
+        .wf-accordion__collapsible-icon {
+          .SystemLimited-icon {
+            color: $IconDefault;
+          }
+        }
+        .wf-accordion__title {
+          color: $TextDefault;
+        }
+      }
+    }
+
+    .wf-accordion__block--active {
+      background: $SurfacePrimaryDefault;
+      border: solid 1px $ActionPrimaryDefault;
+      box-shadow: 0px 1px 0px #00806017;
+
+      .wf-accordion__header-section {
+        .wf-accordion__title {
+          color: $ActionPrimaryPressed;
+        }
+        .wf-accordion__collapsible-icon {
+          .SystemLimited-icon {
+            color: $ActionPrimaryDefault;
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+          }
+        }
+      }
+      
+      .wf-accordion__content {
+        color: $ActionPrimaryDefault;
+      }
+
+      &:hover {
+        background: $SurfacePrimaryDefault;
+
+        .wf-accordion__collapsible-icon {
+          .SystemLimited-icon {
+            color: $ActionPrimaryDefault;
+          }
+        }
+        .wf-accordion__title {
+          color: $ActionPrimaryPressed;
+        }
+      }
+    }
+  }
+}
+.wf-hellobar {
+  position: sticky;
+  @include flex(row, space-between, center);
+  background: $SurfaceDefault;
+  padding: 8px 0px;
+  min-height: 48px;
+  top: 70px;
+
+  & + .wf-hellobar {
+    top: 70px + 44px;
+  }
+  
+  width: 100%;
+  z-index: z("hellobar");
+
+  &__content {
+    display: inline-block;
+    padding: 0px 8px;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+  
+    b {
+      font-weight: 500;
+    }
+    .SystemLimited-icon {
+      font-size: 18px;
+      margin-right: 4px;
+      color: $IconDefault;
+    }
+  }
+
+  &__close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+    padding: 6px;
+    height: 100%;
+    cursor: pointer;
+    color: $IconDefault;
+    @include transition();
+
+    &:hover {
+      color: $IconHovered;
+    }
+  }
+
+  &--warning {
+    background: $SurfaceWarningDefault;
+    color: $TextWarning;
+    
+    .SystemLimited-icon {
+      color: $IconWarning;
+    }
+  }
+  &--success {
+    background: $SurfaceSuccessDefault;
+    color: $TextSuccess;
+
+    .SystemLimited-icon {
+      color: $IconSuccess;
+    }
+  }
+  &--critical {
+    background: $SurfaceCriticalDefault;
+    color: $TextCritical;
+
+    .SystemLimited-icon {
+      color: $IconCritical;
+    }
+  }
+  &--success {
+    background: $SurfaceSuccessDefault;
+    color: $TextSuccess;
+
+    .SystemLimited-icon {
+      color: $IconSuccess;
+    }
+  }
+  &--relative {
+    position: relative;
+    top: 0 !important;
+  }
+}
+
+.wf-sub-header {
+  position: relative;
+  flex-wrap: wrap;
+  padding: 12px 0px;
+  background: $SurfaceDefault;
+  width: 100%;
+
+  @extend .ShadowDepth02;
+
+  &__wrapper {
+    @extend .Container;
+
+    &.cdn-usage-blocks {
+      @include flex(row, flex-start, center);
+      gap: 20px;
+
+      .usage-block {
+        @include flex(row, flex-start, stretch);
+        background: $BackgroundHovered;
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        border: solid 1px $BorderSubdued;
+
+        &__title {
+          padding: 12px 16px;
+          background-color: $BackgroundPressed;
+          font-weight: 500;
+        }
+        &__details {
+          @include flex(row, space-between, center);
+          padding: 0px 16px;
+          background-color: $BackgroundDefault;
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+
+  @include media-query("large", max) {
+    .wf-sub-header__wrapper.cdn-usage-blocks {
+      .usage-block {
+        .usage-block__title {
+          padding: 8px;
+          font-size: 12px;
+        }
+        .usage-block__details {
+          min-width: 0;
+          padding: 0px 4px 0px 8px;
+
+          & > span {
+            @include truncate();
+          }
+        }
+      }
+    } 
+  }
+
+  @include media-query("medium", max) {
+    .wf-sub-header__wrapper.cdn-usage-blocks {
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .usage-block {
+        flex-basis: 100%;
+        width: 100%;
+
+        .usage-block__title {
+          padding: 12px;
+          font-size: 14px;
+          min-width: 76px;
+        }
+        .usage-block__details {
+          min-width: 0;
+          padding: 0px 12px;
+
+          & > span {
+            @include truncate();
+          }
+        }
+      }
+    } 
+  }
+}
+
+.wf-slider {
+  width: auto;
+
+  & > div {
+    width: 100%;
+    background-color: $BorderSubdued;
+    height: 6px;
+
+    & > div {
+      &:first-child {
+        background-color: $InteractiveDefault;
+      }
+      &:last-child {
+        div {
+          background-color: $SurfaceDefault;
+          border: solid 1px $BorderShadowSubdued;
+          @extend .ShadowDepth02;
+        }
+      }
+    }
+  }
+  
+  &.wf-slider--fluid {
+    width: 100%;
+  }
+}
+
+.wf-dropdown {
+  position: relative;
+  z-index: z('wf-dropdown');
+
+  &__menu {
+    display: none;
+    position: absolute;
+    width: 200px;
+    padding: 8px 0px;
+    border-radius: 8px;
+    margin-top: 4px;
+    background: $SurfaceDefault;
+    @extend .ShadowDepth03;
+    z-index: z('wf-dropdown');
+
+    &__item {
+      position: relative;
+      @include flex(row, flex-start, center);
+      padding: 8px;
+      margin: 0px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      @include transition(all, 0.2s);
+
+      &__text {
+        color: $TextDefault;
+      }
+      .SystemLimited-icon {
+        color: $IconDefault;
+        font-size: 20px;
+      }
+
+      &:hover {
+        background: $SurfaceHovered;
+      }
+      &:active {
+        background: $SurfacePressed;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
+        display: block;
+        pointer-events: none;
+        box-shadow: 0 0 0 -1px $FocusedDefault;
+        @include transition(box-shadow, 0.1s);
+        border-radius: 5px;
+      }
+      &:focus:after {
+        box-shadow: 0 0 0 2px $FocusedDefault;
+        outline: 1px solid transparent;
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: -8px;
+        width: 3px;
+        background: $InteractiveDefault;
+        display: block;
+        pointer-events: none;
+        -webkit-border-top-right-radius: 30px;
+        -webkit-border-bottom-right-radius: 30px;
+        -moz-border-radius-topright: 30px;
+        -moz-border-radius-bottomright: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+        @include transition(all, 0.2s);
+      }
+      &--active {
+        background: $SurfaceSelectedDefault;
+        &:before {
+          visibility: visible;
+          opacity: 1;
+        }
+        .SystemLimited-icon {
+          color: $InteractiveDefault;
+        }
+
+      }
+      &--folder-colors {
+        width: 20px;
+        height: 20px;
+        margin: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &.wf-dropdown__menu__item--folder-colors--reset {
+          font-size: 20px;
+          color: $IconDefault;
+          @include transition(all, 0.1s);
+
+          &:hover {
+            color: $InteractiveDefault
+          }
+        }
+      }
+    }
+    .wf-dropdown-wrapper__item-wrapper {
+      position: relative;
+      
+
+      .wf-dropdown__menu__item__child {
+        position: absolute;
+        display: none;
+        padding: 8px 0px;
+        border-radius: 8px;
+        margin-top: 0px;
+        background: $SurfaceDefault;
+        @extend .ShadowDepth03;
+        z-index: z('SystemLimited-dropdown');
+        width: 200px;
+        top: -8px;
+
+        &--folder-colors {
+          display: none;
+          flex-wrap: wrap;
+          padding: 2px 2px;
+          margin-top: 4px;
+        }
+      }
+
+      &:hover {
+        .wf-dropdown__menu__item__child {
+          display: block;
+
+          &--folder-colors {
+            display: flex;
+          }
+        }
+      }
+    }
+    &__divider {
+      display: block;
+      margin: 8px 0;
+      width: 100%;
+      height: 1px;
+      background: $DividerBottom;
+    }
+
+    &.wf-dropdown__menu--fluid {
+      width: 100%;
+    }
+    .wf-load-more {
+      transform: scale(0.5);
+    }
+    &.wf-dropdown__menu--scroll {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+  }
+  &--left {
+    left: 0;
+  }
+  &--right {
+    right: 0;
+  }
+  &--child-left {
+    .wf-dropdown__menu__item__child {
+      left: -100%;
+    }
+  }
+  &--child-right {
+    .wf-dropdown__menu__item__child {
+      right: -100%;
+    }
+  }
+  &--active {
+    z-index: z('wf-dropdown--active');
+    
+    .wf-dropdown__menu {
+      display: block;
+
+      & > ul {
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.wf-cards-list {
+  @include flex(column, flex-start, stretch);
+  width: 100%;
+  gap: 12px;
+
+  &__single {
+    position: relative;
+    cursor: pointer;
+    @include flex(row, flex-start, center);
+    background-color: $BackgroundDefault;
+    border-radius: 8px;
+    padding: 12px;
+    border: solid 1px $BorderSubdued;
+    @include transition(all, 0.15s);
+
+    &:hover, &:active {
+      border-color: $BorderDefault;
+    }
+  }
+  &__details {
+    @include flex(row, flex-start, center);
+    gap: 8px;
+  }
+  &__icon {
+    max-width: 50px;
+  }
+  &__title {
+    color: $TextDefault;
+  }
+  &__main-title {
+    @extend .Body;
+  }
+  &__sub-title {
+    @extend .Caption;
+    color: $TextSubdued;
+  }
+  .wf-badge {
+    margin-left: 8px;
+
+  }
+
+  .SystemLimited-icon {
+    position: absolute;
+    right: 12px;
+    font-size: 24px;
+    color: $InteractiveDefault;
+    opacity: 0;
+    visibility: hidden;
+    @include transition(all, 0.15s);
+  }
+
+  .wf-cards-list__single.wf-cards-list__single--active {
+    border: solid 1px $InteractiveDefault;
+    background-color: $SurfaceSelectedDefault;
+
+    .SystemLimited-icon {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.wf-navigation {
+  display: block;
+  width: 100%;
+  padding: 8px 0px;
+  border-radius: 8px;
+  margin-top: 4px;
+
+  &__item {
+    position: relative;
+    @include flex(row, flex-start, center);
+    padding: 8px;
+    margin: 4px 8px 0px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    @include transition(all, 0.2s);
+
+    &__text {
+      color: $TextDefault;
+      font-weight: 500;
+    }
+    .SystemLimited-icon {
+      color: $IconDefault;
+      font-size: 20px;
+    }
+
+    &:hover {
+      background: $BackgroundHovered;
+    }
+    &:active {
+      background: $BackgroundPressed;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
+      display: block;
+      pointer-events: none;
+      box-shadow: 0 0 0 -1px $FocusedDefault;
+      @include transition(box-shadow, 0.1s);
+      border-radius: 5px;
+    }
+    &:focus:after {
+      box-shadow: 0 0 0 2px $FocusedDefault;
+      outline: 1px solid transparent;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+      top: 0;
+      bottom: 0;
+      left: -8px;
+      width: 3px;
+      background: $ActionPrimaryDefault;
+      display: block;
+      pointer-events: none;
+      -webkit-border-top-right-radius: 30px;
+      -webkit-border-bottom-right-radius: 30px;
+      -moz-border-radius-topright: 30px;
+      -moz-border-radius-bottomright: 30px;
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+      @include transition(all, 0.2s);
+    }
+    &--active {
+      background: $BackgroundPressed;
+      &:before {
+        visibility: visible;
+        opacity: 1;
+      }
+      .SystemLimited-icon {
+        color: $ActionPrimaryDefault;
+      }
+    }
+    &--sub {
+      background: initial;
+      padding-left: 32px;
+
+      .wf-navigation__item__text {
+        color: $TextSubdued;
+      }
+
+      &.wf-navigation__item--active {
+        .wf-navigation__item__text {
+          color: $TextDefault;
+        }
+      }
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &__divider {
+    display: block;
+    margin: 8px 0;
+    width: 100%;
+    height: 1px;
+    background: $DividerBottom;
+  }
+}
+
+.wf-badge {
+  background: $SurfaceNeutralDefault;
+  color: $TextDefault;
+  padding: 0px 8px;
+  font-size: 13px;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  &__loader {
+    display: inline-block;
+    transition: opacity 0.3s linear 0.3s, top 0.4s cubic-bezier(0.22, 0, 0.41, -0.57);
+
+    svg {
+      margin: 0;
+      width: 16px;
+      fill: $TextDefault;
+    }
+    .loading__circle {
+      &:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+    }
+    @keyframes loading__circle {
+      0% { cy: 10; } 
+      25% { cy: 3; } 
+      50% { cy: 10; }
+    }
+    .loading__circle {
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      animation-name: loading__circle;
+      cy: 10;
+    }
+  }
+
+  &.wf-badge--warning {
+    background: $SurfaceWarningDefault;
+    color: $TextWarning;
+  }
+  &.wf-badge--critical {
+    background: $SurfaceCriticalDefault;
+    color: $TextCritical;
+  }
+  &.wf-badge--success {
+    background: $SurfaceSuccessDefault;
+    color: $TextSuccess;
+  }
+}
+
+.wf-form-group {
+  margin-bottom: 12px;
+
+  &__title {
+    color: $TextDefault;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  &__sub {
+    color: $TextSubdued;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  &--fluid {
+    width: 100%;
+  }
+}
+
+
+.wf-cardfield {
+  position: relative;
+  font-family: $FontFace;
+  color: $TextDefault;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 12px 10px;
+  min-height: 44px;
+  border-radius: 4px;
+  display: block;
+  background: $SurfaceDefault;
+  border: solid 1px $InputBorder;
+  border-top-color: $InputBorderTop;
+  z-index: 3;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    box-shadow: 0 0 0 -4px $FocusedDefault;
+    @include transition(box-shadow, 0.05s);
+    border-radius: 5px;
+  }
+
+  &::placeholder {
+    font-size: 14px;
+    color: $TextSubdued;
+  }
+
+  &:focus-within::before {
+      box-shadow: 0 0 0 2px $FocusedDefault;
+      outline: 1px solid transparent;
+  }
+
+  &--focus {
+    &:before {
+      box-shadow: 0 0 0 2px $FocusedDefault;
+        outline: 1px solid transparent;
+    }
+  }
+  
+  &--invalid {
+    border: solid 1px $BorderCriticalDefault;
+  }
+}
+
+
+
+.wf-textfield {
+  @include flex(row, flex-start, center);
+  position: relative;
+  @extend .Body;
+  margin: 0;
+  padding: 0px 4px;
+  border-radius: 4px;
+  color: $TextDefault;
+
+  .wf-textfield__input {
+    font-family: $FontFace;
+    display: block !important;
+    z-index: 3;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    flex-grow: 1;
+    flex-shrink: 1;
+    background: transparent !important;
+    border: 0px !important;
+    padding: 8px 4px !important;
+    margin: 0 !important;
+    border-radius: 4px !important;
+    min-height: 36px !important;
+
+    &:focus {
+      border: 0px !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+    }
+
+    &::placeholder {
+      font-size: 14px;
+      color: $TextSubdued;
+    }
+  }
+  &__prefix-icon {
+    flex-shrink: 0;
+    flex-grow: 0;
+    z-index: 3;
+    font-size: 20px;
+    padding: 0px 4px;
+    margin-right: 0;
+    color: $IconDefault;
+  }
+  &__postfix-icon {
+    flex-shrink: 0;
+    flex-grow: 0;
+    opacity: 0;
+    visibility: hidden;
+    color: $IconSubdued;
+    z-index: 3;
+    font-size: 20px;
+    padding: 0px 4px;
+    cursor: pointer;
+    @include transition(all, 0.15s);
+
+    &:hover {
+      color: $IconDefault;
+    }
+  }
+  &__postfix-content {
+    color: $TextSubdued;
+    flex-shrink: 0;
+    flex-grow: 0;
+    z-index: 3;
+    margin-right: 2px;
+  }
+  &__postfix-button {
+    flex-shrink: 0;
+    flex-grow: 0;
+    z-index: 3;
+    margin-right: 2px;
+
+    &:focus:after {
+      box-shadow: none;
+      outline: 0;
+    }
+  }
+
+  &__backdrop {
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 4px;
+    display: block;
+    background: $SurfaceDefault;
+    border: solid 1px $InputBorder;
+    border-top-color: $InputBorderTop;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: -2px;
+      right: -2px;
+      bottom: -2px;
+      left: -2px;
+      display: block;
+      pointer-events: none;
+      box-shadow: 0 0 0 -2px $FocusedDefault;
+      @include transition(box-shadow, 0.1s);
+      border-radius: 5px;
+    }
+  }
+
+  &:focus-within {
+    .wf-textfield__backdrop::after {
+      box-shadow: 0 0 0 2px $FocusedDefault;
+      outline: 1px solid transparent;
+    }
+    .wf-textfield__prefix-icon {
+      color: $InteractiveDefault;
+    }
+  }
+  &.wf-textfield--contains-query, &.wf-textfield--show-post-icon {
+    .wf-textfield__postfix-icon {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &--extra-slim {
+    .wf-textfield__input {
+      padding: 4px 8px;
+      min-height: 28px;
+    }
+  }
+  &--slim {
+    .wf-textfield__input {
+      padding: 6px 10px !important;
+      min-height: 32px !important;
+      font-size: 12px !important;
+
+      &::placeholder {
+        font-size: 12px !important;
+      }
+    }
+  }
+  &--large {
+    .wf-textfield__input {
+      padding: 6px 10px !important;
+      min-height: 44px !important;
+      font-size: 14px !important;
+
+      &::placeholder {
+        font-size: 14px !important;
+      }
+    }
+  }
+  &--fluid {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+
+    .wf-textfield__input {
+      width: 100%;
+    }
+  }
+  &--error {
+    .wf-textfield__backdrop {
+      border-color: $BorderCriticalDefault;
+      background-color: $SurfaceCriticalSubdued;
+    }
+  }
+  &--textarea {
+    padding: 0px;
+
+    .wf-textfield__input {
+      padding: 8px !important;
+    }
+  }
+  &--size-120 {
+    max-width: 120px;
+    
+    .wf-textfield__input {
+      width: 100%;
+    }
+  }
+  &--size-220 {
+    max-width: 220px;
+    
+    .wf-textfield__input {
+      width: 100%;
+    }
+  }
+  &--search {
+    .wf-textfield__backdrop {
+      background: $SurfaceSearchField;
+    }
+  }
+  &--disabled {
+    input {
+      cursor: not-allowed;
+    }
+
+    .wf-textfield__backdrop {
+      background: $SurfaceSubdued;
+    }
+  }
+}
+
+.wf-inline-error {
+  @include flex(row, flex-start, flex-start);
+
+  &__icon {
+    color: $IconCritical;
+    font-size: 18px;
+    margin-top: 1px;
+  }
+  &__text {
+    color: $TextCritical;
+    margin-left: 4px;
+  }
+
+  &--fluid {
+    width: 100%;
+  }
+}
+
+.wf-select {
+  position: relative;
+  @extend .Body;
+  margin: 0;
+  border-radius: 4px;
+
+  &__input {
+    border: none;
+    text-transform: none;
+    letter-spacing: normal;
+    position: absolute;
+    text-rendering: auto;
+    top: 0;
+    left: 0;
+    z-index: 2 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    opacity: 0.001 !important;
+    padding: 0px !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  &__content {
+    @include flex(row, flex-start, center);
+    padding: 0px 4px;
+    z-index: 1;
+    color: $TextDefault;
+
+    .wf-select__value {
+      font-family: $FontFace;
+      display: block !important;
+      font-size: 14px !important;
+      line-height: 18px !important;
+      z-index: 1;
+      flex-grow: 1;
+      flex-shrink: 1;
+      background: transparent !important;
+      border: 0px !important;
+      padding: 8px 8px !important;
+      margin: 0 !important;
+      border-radius: 4px !important;
+      min-height: 36px !important;
+    }
+    .wf-select__postfix-icon {
+      flex-shrink: 0;
+      flex-grow: 0;
+      color: $IconDefault;
+      z-index: 3;
+      font-size: 20px;
+      padding: 0px 4px;
+      cursor: pointer;
+      @include transition(all, 0.15s);
+
+      &:hover {
+        color: $IconDefault;
+      }
+    }
+  }
+
+  &__backdrop {
+    position: absolute;
+    z-index: 0;
+    margin: 0;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 4px;
+    display: block;
+    background: $SurfaceDefault;
+    border: solid 1px $InputBorder;
+    border-top-color: $InputBorderTop;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: -2px;
+      right: -2px;
+      bottom: -2px;
+      left: -2px;
+      display: block;
+      pointer-events: none;
+      box-shadow: 0 0 0 -2px $FocusedDefault;
+      @include transition(box-shadow, 0.1s);
+      border-radius: 5px;
+    }
+  }
+
+  &:focus-within {
+    .wf-select__backdrop::after {
+      box-shadow: 0 0 0 2px $FocusedDefault;
+      outline: 1px solid transparent;
+    }
+  }
+
+  &--large {
+    .wf-select__content {
+      min-height: 44px;
+      padding: 4px 8px;
+    }
+  }
+
+  &--fluid {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+
+    .wf-select__content {
+      width: 100%;
+    }
+  }
+
+  &--size-220 {
+    width: 220px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+
+    .wf-select__content {
+      width: 100%;
+    }
+  }
+}
+
+.wf-checkbox {
+  display: inline-flex;
+  justify-content: flex-start;
+  padding: 0px;
+  cursor: pointer;
+
+  &__control {    
+    display: flex;
+    flex: 0 0 auto;
+    align-items: stretch;
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+
+    & > * {
+      width: 100%;
+    }
+    .wf-checkbox__checkbox {
+      position: relative;
+      margin: 1px;
+    }
+    input.wf-checkbox__input {
+      top: 0px;
+      position: absolute !important;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      overflow: hidden !important;
+      height: 1px !important;
+      width: 1px !important;
+      padding: 0px !important;
+      border: 0px !important;
+    }
+    .wf-checkbox__backdrop {
+      border: solid 2px $BorderDefault;
+      background: $SurfaceDefault;
+      border-radius: 4px;
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      @include transition(border-color, 0.1s);
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        bottom: -2px;
+        left: -2px;
+        border-radius: 4px;
+        background-color: $InteractiveDefault;
+        opacity: 0;
+        transform: scale(0);
+        @include transition(opacity, 0.1s);
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: -3px;
+        right: -3px;
+        bottom: -3px;
+        left: -3px;
+        display: block;
+        pointer-events: none;
+        box-shadow: 0 0 0 -1px $FocusedDefault;
+        @include transition(box-shadow, 0.1s);
+        border-radius: 5px;
+      }
+    }
+    .wf-checkbox__icon {
+      position: absolute;
+      font-size: 20px;
+      line-height: 16px;
+      padding-top: 1px;
+      top: 50%;
+      left: 50%;
+      transform-origin: 50% 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.25);
+      opacity: 0;
+      @include transition(opacity, 0.1s);
+
+      .SystemLimited-icon {
+        color: $IconOnInteractive;
+      }
+    }
+
+    input.wf-checkbox__input:checked {
+      & + .wf-checkbox__backdrop {
+        border-color: $InteractiveDefault;
+      }
+      & + .wf-checkbox__backdrop::before {
+        opacity: 1; 
+        transform: scale(1);
+      }
+      & ~ .wf-checkbox__icon {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        @include transition(opacity, 0.15s);
+        
+      }
+    }
+  }
+
+  &__label {
+    margin-left: 4px;
+    @extend .Body;
+  }
+
+  &:hover {
+    .wf-checkbox__backdrop {
+      border-color: $BorderHovered;
+    }
+  }
+  &:focus-within {
+    .wf-checkbox__backdrop::after {
+      box-shadow: 0 0 0 2px $FocusedDefault;
+      outline: 1px solid transparent;
+    }
+  }
+
+  &.wf-checkbox--disabled {
+    position: relative;
+
+      &::after {
+        display: block;
+        position: absolute;
+        content: "";
+        opacity: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: not-allowed;
+      }
+
+      .wf-checkbox__backdrop {
+        border: solid 2px $BorderDisabled;
+        background: $SurfaceDisabled;
+      }
+  }
+}
+
+.wf-toggler {
+  @include flex(row, space-between, center);
+  gap: 12px;
+
+  &__title {
+    color: $TextDefault;
+
+    &.wf-toggler__title--duo {
+      @include flex(row, flex-start, center);
+      gap: 12px;
+
+      &__details {
+
+      }
+    }
+  }
+  &__image {
+    img {
+      height: 60px;
+    }
+
+    &.wf-toggler__image--cards {
+      max-width: 60px;
+    }
+  }
+
+
+}
+
+.wf-flex {
+  display: flex;
+
+  &__child {
+
+  }
+
+  &.wf-flex--direction-row {
+    flex-direction: row;
+  }
+  &.wf-flex--direction-column {
+    flex-direction: column;
+  }
+
+  &.wf-flex--justify-space-between {
+    justify-content: space-between;
+  }
+  &.wf-flex--justify-flex-start {
+    justify-content: flex-start;
+  }
+  &.wf-flex--justify-flex-end {
+    justify-content: flex-end;
+  }
+
+  &.wf-flex--align-space-between {
+    align-content: space-between;
+  }
+  &.wf-flex--align-flex-start {
+    align-content: flex-start;
+  }
+  &.wf-flex--align-flex-end {
+    align-content: flex-end;
+  }
+  &.wf-flex--align-center {
+    align-content: center;
+  }
+}
+
+.wf-toast-area {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 240px;
+  z-index: z("toasts");
+
+  &:empty {
+    display: none;
+  }
+
+  .wf-toast {
+    @include flex(row, space-between, flex-start);
+    background: $SurfaceOnDefault;
+    padding: 12px 16px;
+    border-radius: 4px;
+    width: 100%;
+    color: $TextOnDefault;
+
+    @extend .ShadowDepth03;
+    @include transition();
+
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
+    &__text {
+      @extend .Body;
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+
+    &__close {
+      @include flex(row, center, center);
+      height: 100%;
+      flex-shrink: 0;
+      flex-grow: 0;
+      font-size: 16px;
+      color: $IconOnDefault;
+      cursor: pointer;
+      @include transition();
+
+      &:hover {
+        color: $IconOnHovered;
+      }
+    }
+
+    &--error {
+      background: $InteractiveCriticalHovered;
+
+      .wf-toast__text {
+        color: $TextOnDefault;
+      }
+
+      .wf-toast__close {
+        color: $IconOnCritical;
+      }
+    }
+  }
+
+  .wf-toast--fade-out {
+    -webkit-animation-name: fadeOutRight;
+    animation-name: fadeOutRight;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+}
+
+.wf-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 0%, 0.65);
+  @include flex(row, center, center);
+  z-index: z("wf-modal");
+  @include transition();
+
+  &__modal-wrapper {
+    padding: 20px 0px;
+    background: $SurfaceDefault;
+    border-radius: 8px;
+    width: calc(100% - 40px);
+    max-width: 500px;
+    z-index: z("wf-modal");
+    @extend .ShadowDepth05;
+
+    &.wf-modal--small-modal {
+      max-width: 340px;
+    }
+
+    &.wf-modal--big-modal {
+      max-width: 640px;
+    }
+
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-duration: 0.35s;
+    animation-duration: 0.35s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
+    .wf-modal__close {
+      display: block;
+      color: $IconDefault;
+      font-size: 20px;
+      padding: 2px;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      opacity: 0.6;
+      cursor: pointer;
+      @include transition();
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .wf-modal__head {
+      padding: 0px 24px 24px;
+      border-bottom: solid 1px $DividerBottom;
+
+      &__sub {
+        margin-top: 4px;
+        @extend .Body;
+        color: $TextSubdued;
+      }
+      &__main-name {
+        @extend .Heading;
+        color: $TextDefault;
+        
+      }
+    }
+    .wf-modal__content {
+      position: relative;
+      margin: 0px 0px 0px;
+      height: auto;
+      @extend .Body;
+      color: $TextSubdued;
+      padding: 20px 20px;
+      max-height: calc(60vh - 7.05px);
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      -webkit-backface-visibility: hidden;
+      -ms-transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-font-smoothing: subpixel-antialiased;
+      
+      textarea {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+
+      &--folders-tree {
+        padding: 4px 0px;
+      }
+
+      &__tab-overlay {
+        position: absolute;
+        background-color: $SurfaceDefault;
+        @include flex(column, center, center);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: z('wf-modal__content__tab-overlay');;
+      }
+
+      &.wf-modal__compression-wrapper {
+        padding: 4px 0px;
+
+        .compression-wrapper__stat-blocks {
+          @include flex(row, space-between, center);
+          margin-bottom: 20px;
+          padding: 0px 20px;
+
+          .compression-wrapper__block {
+            flex-basis: calc(33.333% - 2px);
+            background: $BackgroundDefault;
+            text-align: center;
+            padding: 12px;
+
+            &:first-child {
+              -webkit-border-top-left-radius: 8px;
+              -webkit-border-bottom-left-radius: 8px;
+              -moz-border-radius-topleft: 8px;
+              -moz-border-radius-bottomleft: 8px;
+              border-top-left-radius: 8px;
+              border-bottom-left-radius: 8px;
+            }
+            &:last-child {
+              -webkit-border-top-right-radius: 8px;
+              -webkit-border-bottom-right-radius: 8px;
+              -moz-border-radius-topright: 8px;
+              -moz-border-radius-bottomright: 8px;
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+            }
+
+            .compression-wrapper__block__count {
+              font-size: 14px;
+              font-weight: 500;
+              color:  $TextDefault;
+
+              .compression-wrapper__block__mini {
+                font-weight: 300;
+                margin-left: 2px;
+              }
+            }
+            .compression-wrapper__block__details {
+              font-size: 12px;
+              color: $TextSubdued;
+            }
+          }
+        }
+
+        .compression-wrapper__tabs {
+          &__tab-head {
+            @include flex(row, space-between, center);
+            border-radius: 4px;
+
+            .compression-wrapper__tab {
+              position: relative;
+              color: $TextSubdued;
+              font-size: 14px;
+              flex: 1;
+              text-align: center;
+              padding: 10px 0;
+              border-radius: 0px;
+              border-bottom: solid 1px $BorderShadowSubdued;
+              cursor: pointer;
+              overflow: hidden;
+              @include transition(all, 0.1s);
+
+              &::after {
+                @include pseudo();
+                bottom: 0;
+                left: 0;
+                background-color: transparent;
+                width: 100%;
+                height: 0px;
+                @include transition(all, 0.15s, ease-in);
+              }
+
+              &:hover {
+                color: $TextDefault;
+
+                &::after {
+                  height: 3px;
+                  background-color: $BorderSubdued;
+                }
+              }
+
+              &.compression-wrapper__tab--active { 
+                color: $TextDefault;
+
+                &::after {
+                  height: 3px;
+                  background-color: $ActionPrimaryDefault;
+                }
+              }
+
+              
+            }
+          }
+          .compression-wrapper__tab-content {
+            position: relative;
+            background-color: $BackgroundDefault;
+            padding: 16px 24px;
+            height: 260px;
+            overflow: hidden;
+            overflow-y: auto;
+
+            .wf-modal__content__tab-overlay {
+              padding: 24px 28px;
+              background-color: $BackgroundDefault;
+            }
+
+            .wf-folders-tree {
+              .single-folder {
+
+                &:hover {
+                  .single-folder__backdrop {
+                    background: $BackgroundHovered;
+                  }
+                }
+
+                &.single-folder--checked {
+                  .single-folder__backdrop {
+                    background: $SurfaceSelectedPressed;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &__tab-overlay {
+        position: absolute;
+        background-color: $SurfaceDefault;
+        @include flex(column, center, center);
+        padding: 28px 24px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: z('wf-modal__content__tab-overlay');;
+      }
+      &__title {
+        @extend .Heading;
+        color: $TextDefault;
+      }
+      &__sub {
+        @extend .Body;
+        color: $TextSubdued;
+
+        b {
+          color: $TextDefault
+        }
+      }
+    }
+    .wf-modal__actions {
+      @include flex(row, flex-end);
+      border-top: solid 1px $DividerBottom;
+      padding: 24px 24px 0px;
+      margin:  0px 0px;
+
+      &__price {
+        &__currency {
+          @extend .DisplaySmall;
+          color: $TextSubdued;
+          letter-spacing: -.2px;
+          vertical-align: super;
+        }
+        &__amount {
+          @extend .DisplayLarge;
+        }
+
+        &__sub {
+          @extend .Heading;
+          color: $TextSubdued;
+        }
+
+        &__overusage {
+          @include flex(row, flex-start, center);
+          @extend .Caption;
+          color: $TextSubdued;
+
+          .SystemLimited-icon {
+            font-size: 20px;
+            color: $IconSubdued;
+            margin-left: 4px;
+          }
+        }
+      }
+    }
+
+    &.wf-modal__delete-wrapper {
+      .wf-modal__content {
+        @include flex(column, center, center);
+        padding: 18px 10px;
+        border-left: 0px;
+        border-right: 0px;
+        text-align: center;
+
+        .wf-modal__delete-wrapper__thumb {
+          display: block;
+          width: 100px;
+          height: 100px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          &.wf-modal__delete-wrapper__thumb--file {
+            @include flex(column, center, center);
+            background-size: 90px;
+
+            .type {
+              color: $TextDisabled;
+              font-weight: 500;
+              font-size: 14px;
+            }
+          }
+          &.wf-modal__delete-wrapper__thumb.image {
+            background-size: cover;
+            border-radius: 4px;
+          }
+        }
+        .SystemLimited-icon {
+          font-size: 72px;
+          line-height: 72px;
+          color: $IconDisabled;
+        }
+        .wf-modal__delete-wrapper__title {
+          color: $TextDefault;
+          margin: 10px 0px 2px;
+          font-weight: 500;
+          font-size: 16px;
+        }
+        .wf-modal__delete-wrapper__size {
+          color: $TextSubdued;
+          font-size: 14px;
+        }
+        .wf-modal__delete-wrapper__time {
+          font-size: 14px;
+          color: $TextDisabled;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    &.rate-modal {
+      .head {
+        .main-name {
+          font-size: 20px;
+
+          &:last-child {
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+        padding-bottom: 14px;
+      }
+      .content {
+        padding-top: 14px;
+        font-size: 14px;
+
+        .rating-emojis {
+          @include flex(row, center, center);
+          font-size: 28px;
+          margin-top: 12px;
+          
+          .emoji {
+            margin: 0px 4px;
+            cursor: pointer;
+          }
+        }
+        .feedback {
+          --normal: #ECEAF3;
+          --normal-shadow: #D9D8E3;
+          --normal-mouth: #9795A4;
+          --normal-eye: #595861;
+          --active: #F8DA69;
+          --active-shadow: #F4B555;
+          --active-mouth: #F05136;
+          --active-eye: #313036;
+          --active-tear: #76b5e7;
+          --active-shadow-angry: #e94f1d;
+
+          
+          margin: 0px 0 0;
+          padding: 0;
+          list-style: none;
+          @include flex(row, center, center);
+
+          li {
+              position: relative;
+              border-radius: 50%;
+              background: var(--sb, var(--normal));
+              box-shadow: inset 3px -3px 4px var(--sh, var(--normal-shadow));
+              transition: background .4s, box-shadow .4s, transform .3s;
+              -webkit-tap-highlight-color: transparent;
+              &:not(:last-child) {
+                  margin-right: 20px;
+              }
+              div {
+                  width: 40px;
+                  height: 40px;
+                  position: relative;
+                  transform: perspective(240px) translateZ(4px);
+                  svg,
+                  &:before,
+                  &:after {
+                      display: block;
+                      position: absolute;
+                      left: var(--l, 9px);
+                      top: var(--t, 13px);
+                      width: var(--w, 8px);
+                      height: var(--h, 2px);
+                      transform: rotate(var(--r, 0deg)) scale(var(--sc, 1)) translateZ(0);
+                  }
+                  svg {
+                      fill: none;
+                      stroke: var(--s);
+                      stroke-width: 2px;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      transition: stroke .4s;
+                      &.eye {
+                          --s: var(--e, var(--normal-eye));
+                          --t: 17px;
+                          --w: 7px;
+                          --h: 4px;
+                          &.right {
+                              --l: 23px;
+                          }
+                      }
+                      &.mouth {
+                          --s: var(--m, var(--normal-mouth));
+                          --l: 11px;
+                          --t: 23px;
+                          --w: 18px;
+                          --h: 7px;
+                      }
+                  }
+                  &:before,
+                  &:after {
+                      content: '';
+                      z-index: var(--zi, 1);
+                      border-radius: var(--br, 1px);
+                      background: var(--b, var(--e, var(--normal-eye)));
+                      transition: background .4s;
+                  }
+              }
+              &.angry {
+                  --step-1-rx: -24deg;
+                  --step-1-ry: 20deg;
+                  --step-2-rx: -24deg;
+                  --step-2-ry: -20deg;
+                  div {
+                      &:before {
+                          --r: 20deg;
+                      }
+                      &:after {
+                          --l: 23px;
+                          --r: -20deg;
+                      }
+                      svg {
+                          &.eye {
+                              stroke-dasharray: 4.55;
+                              stroke-dashoffset: 8.15;
+                          }
+                      }
+                  }
+                  &.active {
+                      animation: angry 1s linear;
+                      div {
+                          &:before {
+                              --middle-y: -2px;
+                              --middle-r: 22deg;
+                              animation: toggle .8s linear forwards;
+                          }
+                          &:after {
+                              --middle-y: 1px;
+                              --middle-r: -18deg;
+                              animation: toggle .8s linear forwards;
+                          }
+                      }
+                  }
+              }
+              &.sad {
+                  --step-1-rx: 20deg;
+                  --step-1-ry: -12deg;
+                  --step-2-rx: -18deg;
+                  --step-2-ry: 14deg;
+                  div {
+                      &:before,
+                      &:after {
+                          --b: var(--active-tear);
+                          --sc: 0;
+                          --w: 5px;
+                          --h: 5px;
+                          --t: 15px;
+                          --br: 50%;
+                      }
+                      &:after {
+                          --l: 25px;
+                      }
+                      svg {
+                          &.eye {
+                              --t: 16px;
+                          }
+                          &.mouth {
+                              --t: 24px;
+                              stroke-dasharray: 9.5;
+                              stroke-dashoffset: 33.25;
+                          }
+                      }
+                  }
+                  &.active {
+                      div {
+                          &:before,
+                          &:after {
+                              animation: tear .6s linear forwards;
+                          }
+                      }
+                  }
+              }
+              &.ok {
+                  --step-1-rx: 4deg;
+                  --step-1-ry: -22deg;
+                  --step-1-rz: 6deg;
+                  --step-2-rx: 4deg;
+                  --step-2-ry: 22deg;
+                  --step-2-rz: -6deg;
+                  div {
+                      &:before {
+                          --l: 12px;
+                          --t: 17px;
+                          --h: 4px;
+                          --w: 4px;
+                          --br: 50%;
+                          box-shadow: 12px 0 0 var(--e, var(--normal-eye));
+                      }
+                      &:after {
+                          --l: 13px;
+                          --t: 26px;
+                          --w: 14px;
+                          --h: 2px;
+                          --br: 1px;
+                          --b: var(--m, var(--normal-mouth));
+                      }
+                  }
+                  &.active {
+                      div {
+                          &:before {
+                              --middle-s-y: .35;
+                              animation: toggle .2s linear forwards;
+                          }
+                          &:after {
+                              --middle-s-x: .5;
+                              animation: toggle .7s linear forwards;
+                          }
+                      }
+                  }
+              }
+              &.good {
+                  --step-1-rx: -14deg;
+                  --step-1-rz: 10deg;
+                  --step-2-rx: 10deg;
+                  --step-2-rz: -8deg;
+                  div {
+                      &:before {
+                          --b: var(--m, var(--normal-mouth));
+                          --w: 5px;
+                          --h: 5px;
+                          --br: 50%;
+                          --t: 22px;
+                          --zi: 0;
+                          opacity: .5;
+                          box-shadow: 16px 0 0 var(--b);
+                          filter: blur(2px);
+                      }
+                      &:after {
+                          --sc: 0;
+                      }
+                      svg {
+                          &.eye {
+                              --t: 15px;
+                              --sc: -1;
+                              stroke-dasharray: 4.55;
+                              stroke-dashoffset: 8.15;
+                          }
+                          &.mouth {
+                              --t: 22px;
+                              --sc: -1;
+                              stroke-dasharray: 13.3;
+                              stroke-dashoffset: 23.75;
+                          }
+                      }
+                  }
+                  &.active {
+                      div {
+                          svg {
+                              &.mouth {
+                                  --middle-y: 1px;
+                                  --middle-s: -1;
+                                  animation: toggle .8s linear forwards;
+                              }
+                          }
+                      }
+                  }
+              }
+              &.happy {
+                  div {
+                      --step-1-rx: 18deg;
+                      --step-1-ry: 24deg;
+                      --step-2-rx: 18deg;
+                      --step-2-ry: -24deg;
+                      &:before {
+                          --sc: 0;
+                      }
+                      &:after {
+                          --b: var(--m, var(--normal-mouth));
+                          --l: 11px;
+                          --t: 23px;
+                          --w: 18px;
+                          --h: 8px;
+                          --br: 0 0 8px 8px;
+                      }
+                      svg {
+                          &.eye {
+                              --t: 14px;
+                              --sc: -1;
+                          }
+                      }
+                  }
+                  &.active {
+                      div {
+                          &:after {
+                              --middle-s-x: .95;
+                              --middle-s-y: .75;
+                             animation: toggle .8s linear forwards;
+                          }
+                      }
+                  }
+              }
+              &:not(.active) {
+                  cursor: pointer;
+                  &:active {
+                      transform: scale(.925);
+                  }
+              }
+              &.active {
+                  --sb: var(--active);
+                  --sh: var(--active-shadow);
+                  --m: var(--active-mouth);
+                  --e: var(--active-eye);
+                  div {
+                      animation: shake .8s linear forwards;
+                  }
+              }
+          }
+        }
+      
+        @keyframes shake {
+            30% {
+                transform: perspective(240px) rotateX(var(--step-1-rx, 0deg)) rotateY(var(--step-1-ry, 0deg)) rotateZ(var(--step-1-rz, 0deg)) translateZ(10px);
+            }
+            60% {
+                transform: perspective(240px) rotateX(var(--step-2-rx, 0deg)) rotateY(var(--step-2-ry, 0deg)) rotateZ(var(--step-2-rz, 0deg)) translateZ(10px);
+            }
+            100% {
+                transform: perspective(240px) translateZ(4px);
+            }
+        }
+        
+        @keyframes tear {
+            0% {
+                opacity: 0;
+                transform: translateY(-2px) scale(0) translateZ(0);
+            }
+            50% {
+                transform: translateY(12px) scale(.6, 1.2) translateZ(0);
+            }
+            20%,
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(24px) translateX(4px) rotateZ(-30deg) scale(.7, 1.1) translateZ(0);
+            }
+        }
+        
+        @keyframes toggle {
+            50% {
+                transform: translateY(var(--middle-y, 0)) scale(var(--middle-s-x, var(--middle-s, 1)), var(--middle-s-y, var(--middle-s, 1))) rotate(var(--middle-r, 0deg));
+            }
+        }
+        
+        @keyframes angry {
+            40% {
+                background: var(--active);
+            }
+            45% {
+                box-shadow: inset 3px -3px 4px var(--active-shadow), inset 0 8px 10px var(--active-shadow-angry);
+            }
+        }
+      
+        .sub-desc {
+          margin-top: 16px;
+          font-size: 12px;
+          color: $TextSubdued;
+        }
+        .form-wrapper {
+          margin-top: 22px;
+
+          .further-improvements {
+            text-align: left;
+            margin-bottom: 6px;
+          }
+          .input-group {
+            @include flex(row, space-between, center);
+            input {
+              width: calc(50% - 4px);
+            }
+          }
+        }
+      }
+    }
+
+    &.wf-modal--fade-out {
+      -webkit-animation-name: fadeOutDown;
+      animation-name: fadeOutDown;
+      -webkit-animation-duration: 0.2s;
+      animation-duration: 0.2s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+  }
+  }
+
+  &--lightbox {
+    .wf-modal__modal-wrapper {
+      max-width: 1000px;
+      background-color: transparent;
+      box-shadow: none;
+
+      .wf-modal__close {
+        color: $TextOnDefault;
+      }
+
+      .wf-modal__content {
+        overflow: hidden;
+        height: 100%;
+        max-height: unset;
+      }
+
+      .intro-video {
+        height: 0;
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        padding-top: 30px;
+        position: relative;
+
+        & iframe,
+        & object,
+        & embed {
+          height: 100%;
+          left: 0;
+          position: absolute !important;
+          top: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+[type="file"].wf-file-upload {
+    background: $SurfaceSubdued;
+    color: $TextSubdued;
+    padding: 4px;
+    border: solid 1px $BorderSubdued;
+    @extend .ShadowDepth01;
+    @include transition();
+
+    &::-webkit-file-upload-button {
+      position: relative;
+      flex-shrink: 0;
+      flex-grow: 0;
+      --wf-button-drop-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08);
+      --wf-button-inner-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.2);
+      --wf-button-pressed-inner-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.05);
+
+      background-color: $ActionSecondaryDefault;
+      border-radius: 4px;
+      border: solid 1px $ButtonBorder;
+      border-bottom-color: $ButtonBorderBottom;
+
+      cursor: pointer;
+      @include transition(background-color, 0.2s);
+      box-shadow: var(--wf-button-inner-shadow, --wf-button-drop-shadow);
+      color: $TextDefault;
+      margin: 0px 4px;
+      padding: 3px 11px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+    }
+    &::-webkit-file-upload-button:hover {
+      background-color: $ActionSecondaryHovered;
+    }
+    &::-webkit-file-upload-button:active {
+      box-shadow: var(--wf-button-pressed-inner-shadow);
+      background-color: $ActionSecondaryPressed;
+    }
+
+    &:hover {
+      border: solid 1px $BorderDefault;
+      background: $SurfaceHovered;
+    }
+}
+
+.wf-tabs {
+  border-radius: 8px;
+  overflow: unset;
+  border: solid 1px $BorderSubdued;
+  @extend .ShadowDepth01;
+
+  &__tab-head {
+    @include flex(row, space-between, center);
+    border-radius: 4px;
+
+    &__single-tab {
+      position: relative;
+      color: $TextSubdued;
+      font-size: 14px;
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 0px;
+      border-bottom: solid 1px $DividerBottom;
+      cursor: pointer;
+      @include transition(all, 0.1s);
+
+      &::after {
+        @include pseudo();
+        bottom: -1px;
+        left: 0;
+        background-color: transparent;
+        width: 100%;
+        height: 0px;
+        @include transition(all, 0.15s, ease-in);
+      }
+
+      &:hover {
+        color: $TextDefault;
+
+        &::after {
+          height: 3px;
+          background-color: $BorderSubdued;
+        }
+      }
+
+      &.wf-tabs__tab-head__single-tab--active { 
+        color: $TextDefault;
+        border-bottom-color: transparent;
+
+        &::after {
+          height: 3px;
+          background-color: $ActionPrimaryDefault;
+        }
+      }
+    }
+  }
+  &__tab-content {
+    position: relative;
+    background-color: $SurfaceSubdued;
+    padding: 12px 12px;
+
+    &__tab-overlay {
+      padding: 24px 28px;
+      background-color: $SurfaceSubdued;
+    }
+  }
+  &__tab-footer {
+    position: relative;
+    background-color: $SurfaceDefault;
+    padding: 12px;
+    border-top: solid 1px $DividerBottom;
+  }
+}
+
+.wf-alert {
+  position: relative;
+  @include flex(row, flex-start, flex-start);
+  background: $SurfaceNeutralSubdued;
+  border: solid 1px $BorderNeutralSubdued;
+  border-radius: 8px;
+  padding: 12px;
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 16px;
+    color: $IconDefault;
+    @include transition(color, 0.15s);
+    cursor: pointer;
+
+    &:hover, &:focus {
+      color: $IconHovered;
+    }
+  }
+  &__ribbon {
+    font-size: 20px;
+    margin-right: 4px;
+    margin-top: 2px;
+
+    .SystemLimited-icon {
+      color: $IconDefault;
+    }
+  }
+  &__content-wrapper {
+    color: $TextDefault;
+
+    .wf-alert__heading {
+      @extend .Heading;
+      font-weight: 500 !important;
+
+    }
+    .wf-alert__content {
+      margin-top: 2px;
+      p {
+        @extend .Body;
+        b {
+          font-weight: 500;
+        }
+      }
+      b {
+        font-weight: 500;
+      }
+    }
+    .wf-alert__heading + .wf-alert__content {
+      margin-top: 0px;
+    }
+  }
+
+  &--informational {
+    background: $SurfaceHighlightSubdued;
+    border: solid 1px $BorderHighlightSubdued;
+
+    .wf-alert__ribbon {
+      .SystemLimited-icon {
+        color: $IconHighlight;
+      }
+    }
+    .wf-alert__content-wrapper {
+      color: $TextHighlight;
+
+      a {
+        color: $TextHighlight;
+        font-weight: 500;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &--warning {
+    background: $SurfaceWarningSubdued;
+    border: solid 1px $BorderWarningSubdued;
+
+    .wf-alert__ribbon {
+      .SystemLimited-icon {
+        color: $IconWarning;
+      }
+    }
+    .wf-alert__content-wrapper {
+      color: $TextWarning;
+    }
+    .wf-alert__close {
+      color: $IconWarning;
+    }
+  }
+
+  &--success {
+    background: $SurfaceSuccessSubdued;
+    border: solid 1px $BorderSuccessSubdued;
+
+    .wf-alert__ribbon {
+      .SystemLimited-icon {
+        color: $IconSuccess;
+      }
+    }
+    .wf-alert__content-wrapper {
+      color: $TextSuccess;
+    }
+  }
+
+  &--fluid {
+    width: 100%;
+  }
+}
+
+.wf-index-table {
+  background: $SurfaceDefault;
+  border-radius: 8px;
+
+  @extend .ShadowDepth02;
+
+  tbody {
+    border-bottom: solid 1px $DividerBottom;
+
+    &:last-child {
+      border-bottom: 0px;
+
+      .wf-index-table__body-row {
+        -webkit-border-bottom-right-radius: 8px;
+        -webkit-border-bottom-left-radius: 8px;
+        -moz-border-radius-bottomright: 8px;
+        -moz-border-radius-bottomleft: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+
+        td {
+          &:first-child {
+            -webkit-border-bottom-left-radius: 8px;
+            -moz-border-radius-bottomleft: 8px;
+            border-bottom-left-radius: 8px;
+          }
+          &:nth-child(2) {
+            -webkit-border-bottom-left-radius: 8px;
+            -moz-border-radius-bottomleft: 8px;
+            border-bottom-left-radius: 8px;
+          }
+          &:last-child {
+            -webkit-border-bottom-right-radius: 8px;
+            -moz-border-radius-bottomright: 8px;
+            border-bottom-right-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+  &__head {
+    @extend .ShadowDepth01;
+
+    th {
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      color: $TextDefault;
+      padding: 16px;
+    }
+    .wf-checkbox {
+      height: 18px;
+      margin-top: -4px;
+    }
+  }
+
+  &__body-row {
+    cursor: pointer;
+    @include transition(all, 0.1s);
+
+    &:hover {
+      background: $SurfaceHovered;
+    }
+
+    
+    .wf-index-table__heading {
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      color: $TextDefault;
+
+     
+    }
+
+    &--hover-off {
+      transition: none;
+
+      &:hover {
+        cursor: default;
+        background: $SurfaceDefault;
+      }
+    }
+    
+    td {
+      text-align: left;
+      color: $TextSubdued;
+      padding: 12px 16px;
+      min-height: 56px;
+    }
+    .wf-checkbox {
+      height: 18px;
+      margin-top: -4px;
+    }
+    .wf-index-table__attachment {
+      @include flex(row, flex-start, center);
+
+      &__thumb {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        background-size: cover;
+        background-position: center;
+        border-radius: 4px;
+        @extend .ShadowDepth02;
+
+        &.wf-index-table__attachment__thumb--no-thumb {
+          @include flex(row, center, center);
+          background-size: 94%;
+          background-repeat: no-repeat;
+
+          .wf-index-table__attachment__thumb__ext {
+            font-weight: 400;
+            font-size: 10px;
+            color: $TextSubdued;
+            text-shadow: 0px 1px 0px #ffffff;
+          }
+        }
+
+        &.loading {
+          position: relative;
+          overflow: clip;
+          background: $SurfaceNeutralDefault;
+          background-color: $SurfaceNeutralDefault;
+        }
+      
+        &.loading::before {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          content: '';
+          -webkit-animation: SkeltonLoading 1s infinite 0.5s;
+          animation: SkeltonLoading 1s infinite 0.5s;
+          
+          
+          background-image: linear-gradient(
+            90deg, $SurfaceNeutralDefault 0%, $SurfaceSubdued 40%, $SurfaceSubdued 60%, $SurfaceNeutralDefault 100%);
+          transform: translatex(-100%) skew(-20deg);
+        }
+
+        &.wf-index-table__attachment__thumb--woocommerce {
+          &:after {
+            font-family: "SystemLimited-icons" !important;
+            content: "\e942";
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            font-size: 20px;
+            color: $IconOnDefault;
+            background: $SurfaceOnDefault;
+            padding: 0px 3px 0px 3px;
+            border-radius: 4px;
+            z-index: z("thumb-check");
+            @include transition(all, 0.1s);
+          }
+        }
+      }
+      
+      &__folder-thumb {
+        position: relative;
+        font-size: 24px;
+        color: $IconDefault;
+
+        &.wf-index-table__attachment__folder-thumb--woocommerce {
+          .SystemLimited-icon { 
+            &::before {
+              content: '\e96e';
+            }
+          }
+        }
+        &.wf-index-table__attachment__folder-thumb--shortcut {
+          .SystemLimited-icon { 
+            &::before {
+              content: '\e973';
+            }
+          }
+        }
+        &.wf-index-table__attachment__folder-thumb--woocommerce.wf-index-table__attachment__folder-thumb--shortcut {
+          .SystemLimited-icon { 
+            &::before {
+              content: '\e972';
+            }
+          }
+        }
+      }
+      &__details {
+        margin-left: 8px;
+
+        .wf-index-table__attachment__title {
+          color: $TextDefault;
+          font-weight: 500;
+          cursor: pointer;
+        }
+        .wf-index-table__attachment__slug {
+          font-size: 12px;
+        }
+      }
+    }
+    .wf-index-table__post {
+      &__status {
+        color: $InteractiveDefault;
+
+        &.wf-index-table__post__status--unattached {
+          color: $TextSubdued;
+        }
+      }
+      &__action {
+        color: $InteractiveDefault;
+        cursor: pointer;
+      }
+    }
+    &__cancel {
+      font-size: 20px;
+      opacity: 0;
+      visibility: hidden;
+      @include transition(all, 0.1s);
+
+      .SystemLimited-icon {
+        color: $IconDefault;
+        cursor: pointer;
+        @include transition(all, 0.1s);
+
+        &:hover {
+          color: $IconHovered;
+        }
+      }
+    }
+    &.wf-index-table__body-row--selected,
+    &.single-item--dragged-over {
+      background: $SurfaceSelectedDefault;
+    }
+
+    &:hover {
+      .wf-index-table__body-row__cancel {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &.wf-index-table__body-row--cursor-default {
+      cursor: default;
+    }
+  }
+  &__footer {
+    td {
+      text-align: center;
+      padding: 12px 20px;
+      background-color: $BackgroundDefault;
+    }
+  }
+
+  .single-item--dragged-over {
+    .wf-index-table__body-row {
+      background: $SurfaceSelectedDefault;
+    }
+    
+  }
+
+  &__checkbox {
+    display: none;    
+    min-width: 0px;
+    width: 0px;
+  }
+
+  &.wf-index-table--head-sticky {
+    .wf-index-table__head {
+      position: sticky;
+      top: 70px;
+      background: $SurfaceDefault;
+      z-index: 1;
+      -webkit-border-top-left-radius: 8px;
+      -webkit-border-top-right-radius: 8px;
+      -moz-border-radius-topleft: 8px;
+      -moz-border-radius-topright: 8px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      th {
+        &:first-child {
+          -webkit-border-top-left-radius: 8px;
+          -moz-border-radius-topleft: 8px;
+          border-top-left-radius: 8px;
+        }
+        &:nth-child(2) {
+          -webkit-border-top-left-radius: 8px;
+          -moz-border-radius-topleft: 8px;
+          border-top-left-radius: 8px;
+        }
+        &:last-child {
+          -webkit-border-top-right-radius: 8px;
+          -moz-border-radius-topright: 8px;
+          border-top-right-radius: 8px;
+        }
+      }
+    }
+
+    &.wf-index-table--checkbox-active {
+      .wf-index-table__head {
+        &:nth-child(2) {
+          -webkit-border-top-left-radius: 8px;
+          -moz-border-radius-topleft: 8px;
+          border-top-left-radius: 8px;
+        }
+      }
+    }
+  }
+  &.wf-index-table--checkbox-active {
+    .wf-index-table__checkbox {
+      display: table-cell;
+    }
+    tr {
+      th:nth-child(2), td:nth-child(2) {
+        padding-left: 0px;
+      }
+    }
+
+  }
+  &.wf-index-table--fluid {
+    width: 100%;
+  }
+
+  &.wf-index-table--surface-subdued {
+    background: $SurfaceSubdued;
+
+    .wf-index-table__head, .wf-index-table__heading {
+      background: $SurfaceDefault;
+    }
+    .wf-index-table__body-row--hover-off {
+      background: $SurfaceDefault;
+
+      &::hover {
+        background: $SurfaceDefault;
+      }
+    }
+    .wf-index-table__body-row {
+      border-bottom: solid 1px $DividerBottom;
+    }
+  }
+
+  &.wf-index-table--list-view {
+    .wf-index-table__body-row {
+      &:hover {
+        background: $SurfaceSelectedDefault;
+      }
+    }
+    .wf-index-table__body-row.wf-index-table__body-row--focussed {
+      background: $SurfaceSelectedDefault;
+      box-shadow: inset 1px 1px $InteractiveDefault, inset -1px -2px $InteractiveDefault;
+    }
+  }
+
+  &.wf-index-table--features {
+    .wf-index-table__head {
+      th {
+        padding: 20px 20px;
+        text-align: center;
+        border-left: solid 1px #E1E3E5;
+
+        &:first-child {
+          text-align: left;
+          border-left: 0px;
+        }
+      }
+    }
+    .wf-index-table__body-row {
+      border-top: solid 1px $DividerBottom;
+      cursor: default;
+
+      &:hover {
+        background-color: $SurfaceDefault;
+      }
+      &:nth-child(2n) {
+        background-color: $BackgroundDefault;
+      }
+      td {
+        border-radius: 0px !important;
+        padding: 20px 20px;
+        text-align: center;
+        color: $TextDefault;
+        border-left: solid 1px #E1E3E5;
+
+        &:first-child {
+          text-align: left;
+          border-left: 0px;
+        }
+        .SystemLimited-icon {
+          font-size: 20px;
+        }
+        .SystemLimited-icon-cancel {
+          color: $IconCritical;
+        }
+        .SystemLimited-icon-alert {
+          color: #F1A060;
+        }
+        .SystemLimited-icon-tick {
+          color: $ActionPrimaryDefault;
+        }
+      }
+      
+    }
+
+    
+
+    @include media-query("small", max) {
+      overflow: hidden;
+      border-radius: 8px;
+
+      table, thead, tbody, th, td, tr { 
+        display: block; 
+      }
+
+      .wf-index-table__head { 
+        position: absolute;
+        display: none;
+        top: -9999px;
+        left: -9999px;
+      }
+	
+      td { 
+        border: none;
+        border-bottom: 1px solid $DividerBottom; 
+        position: relative;
+        border-left: 0px !important;
+        padding-left: 40% !important; 
+        text-align: left !important;
+      }
+	
+      td:before { 
+        position: absolute;
+        top: calc(50% - 12px);
+        left: 20px;
+        width: 45%; 
+        white-space: nowrap;
+        text-align: left;
+      }
+
+      td:nth-of-type(1):before { content: "Plan"; }
+      td:nth-of-type(2):before { content: "Free"; }
+      td:nth-of-type(3):before { content: "Pro"; }
+      td:nth-of-type(4):before { content: "Business"; }
+      td:nth-of-type(5):before { content: "Agency"; }
+
+      .wf-index-table__body-row {
+        border-top: 0px !important;
+      }
+    }
+  }
+
+  &.wf-index-table--billing {
+    .wf-index-table__head {
+      th {
+        padding: 12px 20px;
+        border-left: solid 1px #E1E3E5;
+
+        &:first-child {
+          text-align: left;
+          border-left: 0px;
+        }
+      }
+    }
+    .wf-index-table__body-row {
+      border-top: solid 1px $DividerBottom;
+      cursor: default;
+
+      &:hover {
+        background-color: $SurfaceDefault;
+      }
+      &:nth-child(2n) {
+        background-color: $BackgroundDefault;
+      }
+      td {
+        border-radius: 0px !important;
+        padding: 12px 20px;
+        color: $TextDefault;
+        border-left: solid 1px #E1E3E5;
+
+        &:first-child {
+          text-align: left;
+          border-left: 0px;
+        }
+        .SystemLimited-icon {
+          font-size: 20px;
+        }
+        .SystemLimited-icon-cancel {
+          color: $IconCritical;
+        }
+        .SystemLimited-icon-alert {
+          color: #F1A060;
+        }
+        .SystemLimited-icon-tick {
+          color: $ActionPrimaryDefault;
+        }
+      }
+    }
+
+    @include media-query("small", max) {
+      overflow: hidden;
+      border-radius: 8px;
+
+      table, thead, tbody, th, td, tr { 
+        display: block; 
+      }
+
+      .wf-index-table__head { 
+        position: absolute;
+        display: none;
+        top: -9999px;
+        left: -9999px;
+      }
+	
+      td { 
+        border: none;
+        border-bottom: 1px solid $DividerBottom; 
+        position: relative;
+        border-left: 0px !important;
+        padding-left: 50% !important; 
+        text-align: left !important;
+      }
+	
+      td:before { 
+        position: absolute;
+        top: calc(50% - 12px);
+        left: 20px;
+        width: 45%; 
+        white-space: nowrap;
+        text-align: left;
+      }
+
+      td:nth-of-type(1):before { content: "Date"; }
+      td:nth-of-type(2):before { content: "Description"; }
+      td:nth-of-type(3):before { content: "Paid Amount"; }
+      td:nth-of-type(4):before { content: "Remaining Amount"; }
+      td:nth-of-type(5):before { content: "Invoice"; }
+
+      tfoot {
+        tr {
+          td {
+            padding: 12px 20px !important;
+  
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+      
+
+      .wf-index-table__body-row {
+        border-top: 0px !important;
+      }
+    }
+  }
+}
+
+.wf-table-wrapper {
+  border: solid 1px $BorderSubdued;
+  border-radius: 8px;
+  overflow: clip;
+  @extend .ShadowDepth01;
+
+  .wf-index-table--surface-subdued {
+    box-shadow: none;
+  }
+
+  &--features {
+    border: solid 1px $DividerBottom;
+    border-radius: 8px;
+  }
+
+  &--billing {
+    border: solid 1px $DividerBottom;
+  }
+}
+
+.wf-pagination {
+  @include flex(row, center, center);
+  gap: 16px;
+
+  button {
+    border-radius: 0px;
+
+    &:first-child {
+      -webkit-border-top-left-radius: 4px;
+      -webkit-border-bottom-left-radius: 4px;
+      -moz-border-radius-topleft: 4px;
+      -moz-border-radius-bottomleft: 4px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    &:last-child {
+      -webkit-border-top-right-radius: 4px;
+      -webkit-border-bottom-right-radius: 4px;
+      -moz-border-radius-topright: 4px;
+      -moz-border-radius-bottomright: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+}
+
+//Animations
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 50%, 0);
+    transform: translate3d(0, 50%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 50%, 0);
+    transform: translate3d(0, 50%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+} 
+@-webkit-keyframes fadeOutDown {
+    0% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 50%, 0);
+      transform: translate3d(0, 50%, 0);
+    }
+}
+@keyframes fadeOutDown {
+    0% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 50%, 0);
+      transform: translate3d(0, 50%, 0);
+    }
+}
+
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+} 
+@-webkit-keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}

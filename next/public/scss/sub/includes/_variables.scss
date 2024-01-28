@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
+$FontFace: 'Roboto', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif !important;
+
+$BackgroundPink0: #fff8f8;
+$ColorPink0: #fff8f8;
+$BackgroundPink10: #feecef;
+$ColorPink10: #feecef;
+$BackgroundPink20: #fedee2;
+$ColorPink20: #fedee2;
+$BackgroundPink30: #fdc7ce;
+$ColorPink30: #fdc7ce;
+$BackgroundPink40: #fca2b0;
+$ColorPink40: #fca2b0;
+$BackgroundPink50: #fb758e;
+$ColorPink50: #fb758e;
+$BackgroundPink60: #e94e71;
+$ColorPink60: #e94e71;
+$BackgroundPink70: #c43256;
+$ColorPink70: #c43256;
+$BackgroundPink80: #7d1c34;
+$ColorPink80: #7d1c34;
+$BackgroundPink90: #4f0e1f;
+$ColorPink90: #4f0e1f;
+$BackgroundOrange0: #fff8f6;
+$ColorOrange0: #fff8f6;
+$BackgroundOrange10: #ffede8;
+$ColorOrange10: #ffede8;
+$BackgroundOrange20: #ffded4;
+$ColorOrange20: #ffded4;
+$BackgroundOrange30: #ffc8b5;
+$ColorOrange30: #ffc8b5;
+$BackgroundOrange40: #ffa781;
+$ColorOrange40: #ffa781;
+$BackgroundOrange50: #f87e4a;
+$ColorOrange50: #f87e4a;
+$BackgroundOrange60: #da6322;
+$ColorOrange60: #da6322;
+$BackgroundOrange70: #b44f13;
+$ColorOrange70: #b44f13;
+$BackgroundOrange80: #712e04;
+$ColorOrange80: #712e04;
+$BackgroundOrange90: #481a00;
+$ColorOrange90: #481a00;
+$BackgroundYellow0: #fbf7ed;
+$ColorYellow0: #fbf7ed;
+$BackgroundYellow10: #ffefd2;
+$ColorYellow10: #ffefd2;
+$BackgroundYellow20: #ffe2af;
+$ColorYellow20: #ffe2af;
+$BackgroundYellow30: #ffcb67;
+$ColorYellow30: #ffcb67;
+$BackgroundYellow40: #f4af28;
+$ColorYellow40: #f4af28;
+$BackgroundYellow50: #d2951d;
+$ColorYellow50: #d2951d;
+$BackgroundYellow60: #b07d12;
+$ColorYellow60: #b07d12;
+$BackgroundYellow70: #906509;
+$ColorYellow70: #906509;
+$BackgroundYellow80: #593d02;
+$ColorYellow80: #593d02;
+$BackgroundYellow90: #372400;
+$ColorYellow90: #372400;
+$BackgroundGreen0: #f3fcf4;
+$ColorGreen0: #f3fcf4;
+$BackgroundGreen10: #dff7e5;
+$ColorGreen10: #dff7e5;
+$BackgroundGreen20: #c1f0d0;
+$ColorGreen20: #c1f0d0;
+$BackgroundGreen30: #90e6b5;
+$ColorGreen30: #90e6b5;
+$BackgroundGreen40: #69cf9c;
+$ColorGreen40: #69cf9c;
+$BackgroundGreen50: #3fb484;
+$ColorGreen50: #3fb484;
+$BackgroundGreen60: #00996e;
+$ColorGreen60: #00996e;
+$BackgroundGreen70: #008060;
+$ColorGreen70: #008060;
+$BackgroundGreen80: #004c3f;
+$ColorGreen80: #004c3f;
+$BackgroundGreen90: #002e25;
+$ColorGreen90: #002e25;
+$BackgroundCyan0: #effcfa;
+$ColorCyan0: #effcfa;
+$BackgroundCyan10: #d6f8f3;
+$ColorCyan10: #d6f8f3;
+$BackgroundCyan20: #b9f0e9;
+$ColorCyan20: #b9f0e9;
+$BackgroundCyan30: #90dfd6;
+$ColorCyan30: #90dfd6;
+$BackgroundCyan40: #67ccc3;
+$ColorCyan40: #67ccc3;
+$BackgroundCyan50: #35b2aa;
+$ColorCyan50: #35b2aa;
+$BackgroundCyan60: #25958f;
+$ColorCyan60: #25958f;
+$BackgroundCyan70: #157a76;
+$ColorCyan70: #157a76;
+$BackgroundCyan80: #054a49;
+$ColorCyan80: #054a49;
+$BackgroundCyan90: #002d2d;
+$ColorCyan90: #002d2d;
+$BackgroundGray0: #fafafa;
+$ColorGray0: #fafafa;
+$BackgroundGray10: #f0f1f2;
+$ColorGray10: #f0f1f2;
+$BackgroundGray20: #e8e9eb;
+$ColorGray20: #e8e9eb;
+$BackgroundGray30: #d2d5d9;
+$ColorGray30: #d2d5d9;
+$BackgroundGray40: #b6babf;
+$ColorGray40: #b6babf;
+$BackgroundGray50: #9fa5ab;
+$ColorGray50: #9fa5ab;
+$BackgroundGray60: #828a91;
+$ColorGray60: #828a91;
+$BackgroundGray70: #6b7177;
+$ColorGray70: #6b7177;
+$BackgroundGray80: #42474c;
+$ColorGray80: #42474c;
+$BackgroundGray90: #212326;
+$ColorGray90: #212326;
+$BackgroundWarmGray0: #faf9f8;
+$ColorWarmGray0: #faf9f8;
+$BackgroundWarmGray10: #f0efec;
+$ColorWarmGray10: #f0efec;
+$BackgroundWarmGray20: #e7e5e0;
+$ColorWarmGray20: #e7e5e0;
+$BackgroundWarmGray30: #d6d4ce;
+$ColorWarmGray30: #d6d4ce;
+$BackgroundWarmGray40: #bebbb4;
+$ColorWarmGray40: #bebbb4;
+$BackgroundWarmGray50: #a3a099;
+$ColorWarmGray50: #a3a099;
+$BackgroundWarmGray60: #89867f;
+$ColorWarmGray60: #89867f;
+$BackgroundWarmGray70: #6f6d66;
+$ColorWarmGray70: #6f6d66;
+$BackgroundWarmGray80: #44423d;
+$ColorWarmGray80: #44423d;
+$BackgroundWarmGray90: #292824;
+$ColorWarmGray90: #292824;
+$BackgroundWhite: #ffffff;
+$ColorWhite: #ffffff;
+$BackgroundBlack: #000000;
+$ColorBlack: #000000;
+$BackgroundCranberry: #c43256;
+$ColorCranberry: #c43256;
+$BackgroundPeach: #ffa781;
+$ColorPeach: #ffa781;
+$BackgroundOffWhite: #fbf7ed;
+$ColorOffWhite: #fbf7ed;
+$BackgroundYellow: #ffcb67;
+$ColorYellow: #ffcb67;
+$BackgroundJade: #008060;
+$ColorJade: #008060;
+$BackgroundForest: #004c3f;
+$ColorForest: #004c3f;
+$BackgroundTeal: #90dfd6;
+$ColorTeal: #90dfd6;
+$BackgroundGray: #d2d5d9;
+$ColorGray: #d2d5d9;
+$BackgroundPapyrus: #f0efec;
+$ColorPapyrus: #f0efec;
+$BackgroundUtilityGreen: #008060;
+$ColorUtilityGreen: #008060;
+$BackgroundUtilityRed: #c43256;
+$ColorUtilityRed: #c43256;
+
+$NavigationLink: #42474c;
+$NavigationLinkHovered: #212326;
+
+
+$BackgroundDefault: #F6F6F7;
+$BackgroundHovered: #F1F2F3;
+$BackgroundPressed: #EDEEEF;
+$BackgroundSelected: #EDEEEF;
+
+$SurfaceDefault: #FFFFFF;
+$SurfaceSubdued: #FAFBFB;
+$SurfaceHovered: #F6F6F7;
+$SurfacePressed: #F1F2F3;
+$SurfaceDepressed:#EDEEEF;
+$SurfaceDisabled: #FAFBFB;
+$SurfaceSearchField: #f1f2f3;
+
+$SurfaceOnDefault: #202123;
+$SurfaceOnSubdued: #1a1c1d;
+$SurfaceOnHovered: #2f3133;
+$SurfaceOnPressed: #3e4043;
+$SurfaceOnDepressed:#505356;
+$SurfaceOnDisabled: #1a1c1d;
+$SurfaceOnSearchField: #2f3133;
+
+$SurfaceOnDefault: #202123;
+$SurfaceOnSubdued: #313336;
+
+$SurfaceSelectedDefault: #F2F7FE;
+$SurfaceSelectedHovered: #EDF4FE;
+$SurfaceSelectedPressed: #E5EFFD;
+
+$SurfaceWarningDefault: #FFD79D;
+$SurfaceWarningSubdued: #FFF5EA;
+$SurfaceWarningSubduedHovered: #FFF2E2;
+$SurfaceWarningSubduedPressed: #FFEBD3;
+
+$SurfaceCriticalDefault: #FED3D1;
+$SurfaceCriticalSubdued: #FFF4F4;
+$SurfaceCriticalSubduedHovered: #FFF0F0;
+$SurfaceCriticalSubduedPressed: #FFE9E8;
+$SurfaceCriticalSubduedDepressed: #FEBCB9;
+
+$SurfaceSuccessDefault: #AEE9D1;
+$SurfaceSuccessSubdued: #F1F8F5;
+$SurfaceSuccessSubduedHovered: #ECF6F1;
+$SurfaceSuccessSubduedPressed: #E2F1EA;
+
+$SurfaceHighlightDefault: #A4E8F2;
+$SurfaceHighlightSubdued: #EBF9FC;
+$SurfaceHighlightSubduedHovered: #E4F7FA;
+$SurfaceHighlightSubduedPressed: #D5F3F8;
+
+$SurfaceNeutralDefault: #E4E5E7;
+$SurfaceNeutralSubdued: #F6F6F7;
+$SurfaceNeutralHovered: #DBDDDF;
+$SurfaceNeutralPressed: #C9CCD0;
+$SurfaceNeutralDisabled: #F1F2F3;
+
+$SurfacePrimaryDefault: #F1F8F5;
+$SurfacePrimaryHovered: #B3D0C3;
+$SurfacePrimaryPressed: #A2BCB0;
+
+$TextDefault: #202223;
+$TextSubdued: #6D7175;
+$TextDisabled: #8C9196;
+
+$TextCritical: #D72C0D;
+$TextWarning: #916A00;
+$TextSuccess: #008060;
+$TextHighlight: #347C84;
+
+$TextOnDefault: #e3e5e7;
+$TextOnSubdued: #999fa4;
+$TextOnDisabled: #6f7377;
+$TextOnInteractive: #FFFFFF;
+$TextOnPrimary: #FFFFFF;
+$TextOnCritical: #FFFFFF;
+
+$IconDefault: #5c5f62;
+$IconSubdued: #8C9196;
+$IconHovered: #1A1C1D;
+$IconPressed: #44474A;
+$IconDisabled: #BABEC3;
+
+$IconOnDefault: #a6acb2;
+$IconOnSubdued: #787d81;
+$IconOnHovered: #e1e3e5;
+$IconOnPressed: #a6acb2;
+$IconOnDisabled: #54575a;
+
+$IconCritical: #D72C0D;
+$IconWarning: #B98900;
+$IconSuccess: #007F5F;
+$IconHighlight: #00A0AC;
+
+$IconOnInteractive: #FFFFFF;
+$IconOnPrimary: #e6fff4;
+$IconOnCritical: #FFFFFF;
+
+$InteractiveDefault: #2C6ECB;
+$InteractiveHovered: #1F5199;
+$InteractiveDepressed: #103262;
+$InteractiveDisabled: #BDC1CC;
+
+$InteractiveCritical: #D82C0D;
+$InteractiveCriticalHovered: #CD290C;
+$InteractiveCriticalDepressed: #670F03;
+$InteractiveCriticalDisabled: #FD938D;
+
+$BorderDefault: #8C9196;
+$BorderSubdued: #C9CCCF;
+$BorderHovered: #999EA4;
+$BorderDepressed: #575959;
+$BorderDisabled: #D2D5D8;
+
+$BorderNeutralSubdued: #BABFC3;
+
+$BorderShadowSubdued: #BABFC4;
+
+$BorderWarningDefault: #B98900;
+$BorderWarningSubdued: #E1B878;
+
+$BorderCriticalDefault: #FD5749;
+$BorderCriticalSubdued: #E0B3B2;
+$BorderCriticalDisabled: #FFA7A3;
+
+$BorderSuccessDefault: #00A47C;   
+$BorderSuccessSubdued: #95C9B4;
+
+$BorderHighlightDefault: #449DA7;   
+$BorderHighlightSubdued: #98C6CD;
+
+$FocusedDefault: #458FFF;
+
+$ActionPrimaryDefault: #008060;
+$ActionPrimaryHovered: #006E52;
+$ActionPrimaryPressed: #005E46;
+$ActionPrimaryDepressed:#003D2C;
+$ActionPrimaryDisabled: #F1F1F1;
+
+$ActionPrimaryOnDefault: #008060;
+$ActionPrimaryOnHovered: #009671;
+$ActionPrimaryOnPressed: #00a47c;
+$ActionPrimaryOnDepressed:#00b388;
+$ActionPrimaryOnDisabled: #005640;
+
+$ActionCriticalDefault: #D82C0D;
+$ActionCriticalHovered: #BC2200;
+$ActionCriticalPressed: #A21B00;
+$ActionCriticalDepressed:#6C0F00;
+$ActionCriticalDisabled: #F1F1F1;
+
+$ActionSecondaryDefault: #FFFFFF;
+$ActionSecondaryHovered: #F6F6F7;
+$ActionSecondaryPressed: #F1F2F3;
+$ActionSecondaryDepressed:#6D7175;
+$ActionSecondaryDisabled: #FFFFFF;
+
+$ActionSecondaryOnDefault: #4d5053;
+$ActionSecondaryOnHovered: #54575b;
+$ActionSecondaryOnPressed: #606467;
+$ActionSecondaryOnDepressed:#606467;
+$ActionSecondaryOnDisabled: #202223;
+
+$DividerBottom: #E1E3E5;
+
+$InputBorderTop: #A7ACB1;
+$InputBorder: #BABFC3;
+
+$ButtonBorder: #BABFC3;
+$ButtonBorderBottom: #BBBFC3;
+
+$DecorativeSurfaceOne: #FFC96B;
+$DecorativeSurfaceTwo: #FFC4B0;
+$DecorativeSurfaceThree: #92E6B5;
+$DecorativeSurfaceFour: #91E0D6;
+$DecorativeSurfaceFive: #FDC9D0;
+
+$DecorativeIconOne: #7E5700;
+$DecorativeIconTwo: #AF294E;
+$DecorativeIconThree: #006D41;
+$DecorativeIconFour: #006A68;
+$DecorativeIconFive: #AE2B4C;
+
+$DecorativeTextOne: #3D2800;
+$DecorativeTextTwo: #490B1C;
+$DecorativeTextThree: #002F19;
+$DecorativeTextFour: #002D2D;
+$DecorativeTextFive: #4F0E1F;

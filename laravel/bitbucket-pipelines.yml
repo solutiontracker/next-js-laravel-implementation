@@ -1,0 +1,12 @@
+image: atlassian/default-image:3
+
+pipelines:
+    branches:
+      master:
+        - step:
+            script:
+              - git remote add sync git@github.com:SystemLimited/system-laravel-api.git
+              - git checkout master
+              - git pull
+              - git fetch --unshallow origin
+              - git push sync master

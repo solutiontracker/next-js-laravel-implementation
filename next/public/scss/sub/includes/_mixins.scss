@@ -1,0 +1,192 @@
+@mixin border-radius($radius){
+  -webkit-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+//@include border-radius (100px);
+
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+//.checkoutInput{
+//   @include input-placeholder{
+//     color: $colorPlaceholder;
+//     opacity: 1;
+//   }
+// }
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+} 
+//@include flex('');
+
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false){
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+  @if $round {
+      border-radius: 3px;
+  }
+  @if $direction == down {
+      border-left: $size solid transparent;
+      border-right: $size solid transparent;
+      border-top: $size solid $color;
+      margin-top: 0 - round( $size / 2.5 );
+  } @else if $direction == up {
+      border-left: $size solid transparent;
+      border-right: $size solid transparent;
+      border-bottom: $size solid $color;
+      margin-bottom: 0 - round( $size / 2.5 );
+  } @else if $direction == right {
+      border-top: $size solid transparent;
+      border-bottom: $size solid transparent;
+      border-left: $size solid $color;
+      margin-right: -$size;
+  } @else if  $direction == left {
+      border-top: $size solid transparent;
+      border-bottom: $size solid transparent;
+      border-right: $size solid $color;
+      margin-left: -$size;
+  }
+}
+
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+  $padding: unquote( ( $y / $x ) * 100 + '%' );
+  @if $pseudo {
+      &:before {
+          @include pseudo($pos: relative);
+          width: 100%;
+          padding-top: $padding;
+      }
+  } @else {
+      padding-top: $padding;
+  }
+}
+
+@mixin image-responsive() {
+  max-width: 100%;
+  height: auto;
+}
+
+@mixin truncate($truncation-boundary: 100%) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+//@include truncate(130px);
+
+@mixin clearfix {
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin hidden {
+    display: none;
+    visibility: hidden;
+}
+
+@mixin visible($state: 'block') {
+    display: unquote($state);
+    visibility: visible;
+}
+
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top:    $top;
+  padding-right:  $right;
+  padding-bottom: $bottom;
+  padding-left:   $left;
+}
+
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top:     $top;
+  margin-right:   $right;
+  margin-bottom:  $bottom;
+  margin-left:    $left;
+}
+
+@function rem($pxValue) {
+    @return (($pxValue/14px) * 1rem); 
+}
+
+$z-indexes: (
+  "toasts",
+  "wf-modal", //Modal
+  "wf-video-ballon",
+  "wf-cookie-ballon",
+  "header", //Header
+  "wf-tooltip", //TOOTLTIP
+  "wf-dropdown--active", //wf-dropdown if active
+  "wf-dropdown", //wf-dropdown
+  "hellobar", //Hellobar
+  "dummy3",
+  "dummy2",
+  "dummy1"
+);
+//Use Like this: z-index: z("upgrade-bar");
+@function z($name) {
+  @if index($z-indexes, $name) {
+      @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+  } @else {
+      @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+      @return null;
+  }
+}
+
+@mixin transition($what: all, $time: 0.25s, $how: ease-in-out) {
+    -webkit-transition: $what $time $how;
+    -moz-transition:    $what $time $how;
+    -ms-transition:     $what $time $how;
+    -o-transition:      $what $time $how;
+    transition:         $what $time $how;
+}
+//@include transition(all, .5s, ease-in-out);
+
+$breakpoints: (
+    "extra-small":  576px,
+    "small":        576px,
+    "medium":       768px,
+    "large":        992px,
+    "x-large":      1200px,
+    "xx-large":     1400px
+);
+
+@mixin media-query($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+    @else {
+      @if $type == max {
+        $width: $width - 1;
+      }
+      $width: $width * 1px;
+      @media only screen and (#{$type}-width: $width) {
+        @content;
+      }
+    }
+}
+// @include media-query("tablet-sm", max) {
+//   font-size: 2rem;
+// }
